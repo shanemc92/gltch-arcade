@@ -8,8 +8,9 @@ A neon, 80s-style arcade cabinet in a single HTML file. Seventy-two tiny games, 
 
 ## Highlights
 
-- **One file.** `index.html` (about 550 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
-- **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
+- **One file.** `index.html` (about 550 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters. The manifest, service worker and icons below are optional extras for installing it.
+- **No dependencies, nothing from anywhere else.** Everything comes from the page itself, so once it is open it works offline.
+- **Installable, if you want.** A web app manifest lets browsers that support it (Chrome, Edge, Android) install it as a standalone app with its own icon and window, and an **Install as an app** button appears at the bottom of the page when your browser offers that. On iPhone and iPad use Share, then Add to Home Screen. A tiny service worker (`sw.js`) keeps a copy so the installed app opens offline. It always loads the newest version when you are online, and none of it is needed: open `index.html` directly and everything still works.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
 - **Keyboard, mouse and touch.** Canvas games have touch controls.
@@ -118,7 +119,7 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 
 Open `index.html` in any modern browser. That is the whole setup.
 
-If you prefer a local server:
+Install and the offline copy need `https://` or `localhost`, so use a local server for those:
 
 ```sh
 python3 -m http.server 8000
@@ -138,7 +139,7 @@ To use a custom domain, add a `CNAME` file containing the domain (for example `a
 
 ## Security and privacy
 
-- **Content Security Policy.** A meta CSP sets `default-src 'none'` and only allows the inline script and styles plus `data:` images. The page cannot make network requests or load external scripts, fonts, images or frames.
+- **Content Security Policy.** A meta CSP sets `default-src 'none'` and only allows the inline script and styles, `data:` images, and the page's own manifest, icons and service worker. The page cannot make network requests or load external scripts, fonts, images or frames.
 - **No HTML injection.** Anything a visitor types is written with `textContent`. `innerHTML` is only used for fixed markup that ships with the page.
 - **Minimal storage.** All keys are prefixed `gltch-arcade:`. They hold numbers (scores, tickets, chips, settings) plus the Pixel Pad drawing. Nothing typed into Password Gauntlet or Mainframe Breach is ever stored, and those fields switch off autocomplete, spellcheck and password-manager prompts.
 - **Safe phishing quiz.** Spot the Phish uses only made-up brands on the reserved `.invalid` top-level domain, and none of its links are clickable.

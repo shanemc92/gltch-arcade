@@ -3,11 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
 <meta name="color-scheme" content="dark">
 <meta name="theme-color" content="#0a0414">
 <meta name="description" content="Tiny toys, puzzles and games in one neon arcade cabinet.">
+<meta name="apple-mobile-web-app-title" content="Gltch Arcade">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <title>Gltch Arcade</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%230a0414'/%3E%3Ccircle cx='8' cy='9' r='5' fill='%23ff2bd6'/%3E%3Cpath d='M2 10.5h12M2 12.5h12' stroke='%230a0414'/%3E%3C/svg%3E">
 <script>
@@ -92,7 +95,8 @@ button{font:inherit;color:inherit}
 #stage{position:relative}
 
 .cab>.screen{margin-bottom:16px}
-.foot{position:relative;z-index:2;font-size:13px;color:var(--dim);padding:10px 16px 20px;text-align:center}
+.foot{position:relative;z-index:2;font-size:13px;color:var(--dim);padding:10px 16px calc(20px + env(safe-area-inset-bottom,0px));text-align:center}
+.foot .btn{--c:var(--cyan);display:block;margin:12px auto 0}
 
 /* ---------- shared item parts ---------- */
 .item{display:flex;flex-direction:column;align-items:center;text-align:center}
@@ -666,7 +670,7 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
 </main>
 <dialog id="jump" aria-labelledby="jump-h"><div class="jump-in"><div class="jump-head"><h2 id="jump-h">All cabinets</h2><div class="row"><button class="btn sm cash-b" id="jump-cash" aria-haspopup="dialog">Cash out</button><button class="btn sm" id="jump-x">Close</button></div></div><p class="sub">Every cabinet has its own link, so you can bookmark or share one.</p><div id="jump-list"></div></div></dialog>
 <dialog id="cash" aria-labelledby="cash-h"><div class="cash-in" id="cash-in"></div></dialog>
-<footer class="foot">&copy; 2026 Shane McElhinney. Everything runs in your browser. High scores stay on this device.</footer>
+<footer class="foot">&copy; 2026 Shane McElhinney. Everything runs in your browser. High scores stay on this device.<button class="btn sm" id="install" type="button" hidden>Install as an app</button></footer>
 
 <script>
 'use strict';
@@ -3823,7 +3827,7 @@ item('brain', 'Word Heist', 'Crack the hidden word one letter at a time. Six wro
   }
   ctx.on(window, 'keydown', e => {
     if (!keyFree(e)) return;
-    const L = e.key.length === 1 ? e.key.toUpperCase() : '';
+    const L = e.key?.length === 1 ? e.key.toUpperCase() : '';
     if (/^[A-Z]$/.test(L)) guess(L);
     else if (e.key === 'Enter' && done) { e.preventDefault(); load(); }
   });
@@ -3947,7 +3951,7 @@ item('toy', 'Morse Station', 'Type a message to see and hear it in Morse code, o
   const rx = h('div', { class: 'body', hidden: true }, big, msg, h('button', { class: 'btn', text: 'Replay', onclick: () => { if (cur) playParts([{ code: M[cur] }]); } }), kb, st);
   ctx.on(window, 'keydown', e => {
     if (mode !== 'rx' || !keyFree(e)) return;
-    const L = e.key.length === 1 ? e.key.toUpperCase() : '';
+    const L = e.key?.length === 1 ? e.key.toUpperCase() : '';
     if (/^[A-Z]$/.test(L)) answer(L);
   });
   const txB = h('button', { class: 'btn on', text: 'Translate' }), rxB = h('button', { class: 'btn', text: 'Decode' });
@@ -4339,7 +4343,7 @@ item('game', 'Beat Lane', 'Hit each note as it crosses the line. Keys D, F, J an
   }
   ctx.on(window, 'keydown', e => {
     if (!keyFree(e)) return;
-    const l = KEYS.indexOf(e.key.toLowerCase());
+    const l = KEYS.indexOf(e.key?.toLowerCase());
     if (l >= 0) { e.preventDefault(); if (!e.repeat) hitLane(l); }
     else if (e.key === ' ' && e.target !== btn && e.target !== calB) { e.preventDefault(); if (!e.repeat && state !== 'play' && state !== 'cal') begin(); }
   });
@@ -4987,7 +4991,7 @@ item('brain', 'Sudoku', 'Fill the grid so every row, column and 3 by 3 box holds
     if (/^[1-9]$/.test(e.key)) put(+e.key);
     else if (e.key === '0' || e.key === 'Backspace' || e.key === 'Delete') { e.preventDefault(); erase(); }
     else if (e.key === 'n' || e.key === 'N') toggleNotes();
-    else if (e.key.startsWith('Arrow')) {
+    else if (e.key?.startsWith('Arrow')) {
       e.preventDefault();
       if (sel < 0) sel = 40;
       else if (e.key === 'ArrowUp' && rowOf(sel) > 0) sel -= 9;
@@ -5136,9 +5140,9 @@ item('brain', 'Neon Cube', 'A 3 by 3 twisty cube. Drag across a face to turn a l
   ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { drag = null; }));
   ctx.on(window, 'keydown', e => {
     if (!keyFree(e)) return;
-    const k = e.key.toUpperCase();
-    if (FACE[k] && e.key.length === 1) { e.preventDefault(); faceTurn(k, e.shiftKey); }
-    else if (e.key.startsWith('Arrow')) {
+    const k = e.key?.toUpperCase();
+    if (FACE[k] && e.key?.length === 1) { e.preventDefault(); faceTurn(k, e.shiftKey); }
+    else if (e.key?.startsWith('Arrow')) {
       e.preventDefault();
       if (e.key === 'ArrowLeft') yaw -= .15; else if (e.key === 'ArrowRight') yaw += .15;
       else pitch = clamp(pitch + (e.key === 'ArrowDown' ? .15 : -.15), -1.45, 1.45);
@@ -6564,7 +6568,7 @@ function openSecret() {
 }
 let typed = '', logoTaps = [];
 addEventListener('keydown', e => {
-  if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1 || (e.target.closest && e.target.closest('input,textarea,select,dialog,[contenteditable]'))) return;
+  if (e.ctrlKey || e.metaKey || e.altKey || e.key?.length !== 1 || (e.target.closest && e.target.closest('input,textarea,select,dialog,[contenteditable]'))) return;
   typed = (typed + e.key.toLowerCase()).slice(-6);
   if (typed === 'joshua') { typed = ''; openSecret(); }
 });
@@ -6572,6 +6576,20 @@ $('#logo').addEventListener('click', () => {
   const t = performance.now(); logoTaps = logoTaps.filter(x => t - x < 3000); logoTaps.push(t);
   if (logoTaps.length >= 7) { logoTaps = []; openSecret(); }
 });
+
+/* Optional install. Browsers that can install the page fire beforeinstallprompt, and only then does the footer button appear;
+   elsewhere (Safari on iPhone, for one) the browser's own Add to Home Screen does the same job. The service worker is a bonus
+   that keeps a copy so the installed app opens offline, and the page is fully playable without it. */
+const instB = $('#install');
+let installEv = null;
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEv = e; instB.hidden = false; });
+addEventListener('appinstalled', () => { installEv = null; instB.hidden = true; });
+instB.addEventListener('click', () => {
+  if (!installEv) return;
+  const ev = installEv; installEv = null; instB.hidden = true;   // a prompt event can only be used once
+  Sound.blip(); ev.prompt();
+});
+if ('serviceWorker' in navigator && isSecureContext) addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => { /* the offline copy is optional */ }); });
 
 const startI = hashIdx();
 if (startI >= 0) { nav.hist.push(startI); nav.pos = 0; nav.seen.add(startI); render(ITEMS[startI], 1, true); }
