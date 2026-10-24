@@ -73,7 +73,9 @@ button{font:inherit;color:inherit}
 .btn.good:disabled{opacity:1;box-shadow:0 0 16px var(--c)}
 .snd{--c:var(--yellow);font-size:12px;padding:8px 12px;white-space:nowrap}
 .snd.fx{--c:var(--cyan)}
-@media (max-width:480px){.marquee{flex-wrap:wrap;row-gap:10px}.logo{flex:1 0 100%}.marquee .snd{flex:1 1 0}}
+.snd.go{--c:var(--green);background-color:var(--c);color:var(--night);text-shadow:none}
+.snd.go:hover{background-color:var(--c);filter:brightness(1.12)}
+@media (max-width:560px){.marquee{flex-wrap:wrap;gap:10px 8px}.logo{flex:1 0 100%}.marquee .snd{flex:1 1 0;padding:8px 6px}}
 
 .screen{--accent:var(--pink);position:relative;border-radius:26px;padding:12px clamp(12px,3.2vw,26px) 26px;min-height:560px;overflow:hidden;
   background:radial-gradient(130% 100% at 50% 0%,rgba(36,16,74,.84) 0%,rgba(18,6,42,.88) 55%,rgba(8,3,15,.94) 100%);-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);border:2px solid var(--accent);
@@ -86,14 +88,7 @@ button{font:inherit;color:inherit}
 .hud .done{color:var(--yellow);text-shadow:0 0 8px var(--yellow)}
 #stage{position:relative}
 
-/* Back and Next sit above the screen, so they stay put however tall the cabinet below is */
-.deck{display:flex;justify-content:center;gap:clamp(16px,6vw,48px);padding:0 0 16px}
-.deck+.screen{margin-bottom:16px}
-.arc{--c:var(--pink);width:clamp(118px,32vw,170px);padding:11px 10px 13px;border:0;border-radius:14px;cursor:pointer;font-weight:800;font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--night);background:var(--c);
-  box-shadow:0 6px 0 color-mix(in srgb,var(--c) 45%,#000),0 0 26px color-mix(in srgb,var(--c) 60%,transparent);transition:transform .08s,box-shadow .08s,filter .2s;touch-action:manipulation}
-.arc:active{transform:translateY(5px);box-shadow:0 1px 0 color-mix(in srgb,var(--c) 45%,#000),0 0 14px color-mix(in srgb,var(--c) 60%,transparent)}
-.arc:disabled{filter:grayscale(.85) brightness(.55);cursor:default;transform:none}
-.arc.back{--c:var(--cyan)}
+.cab>.screen{margin-bottom:16px}
 .foot{position:relative;z-index:2;font-size:13px;color:var(--dim);padding:10px 16px 20px;text-align:center}
 
 /* ---------- shared item parts ---------- */
@@ -343,7 +338,7 @@ textarea.field{text-align:left;resize:vertical;min-height:84px}
 .jump-in{padding:16px 18px 22px;overflow:auto;max-height:88vh}
 .jump-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .jump-head h2{margin:0;font-size:22px;letter-spacing:.08em;color:#fff;text-shadow:0 0 10px var(--pink)}
-.jump-in>.sub{margin:4px 0 0}
+.jump-in>.sub{margin:4px 0 0;max-width:none}
 .jump-sec{margin-top:16px}
 .jump-sec h3{margin:0 0 8px;font-size:13px;letter-spacing:.2em;color:var(--accent);text-shadow:0 0 8px var(--accent)}
 .jump-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
@@ -494,14 +489,11 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
 <main class="cab">
   <header class="marquee">
     <h1 class="logo" id="logo"></h1>
+    <button class="btn snd go" id="random">Random</button>
     <button class="btn snd menu-btn" id="menu" aria-haspopup="dialog">Menu</button>
     <button class="btn snd" id="snd" aria-pressed="false">Sound off</button>
     <button class="btn snd fx" id="fx" aria-pressed="true" aria-label="Motion and static effects" title="Motion and static effects">FX on</button>
   </header>
-  <nav class="deck" aria-label="Arcade navigation">
-    <button class="arc back" id="back" disabled>Back</button>
-    <button class="arc next" id="next">Next</button>
-  </nav>
   <section class="screen">
     <div class="hud"><span id="hud-n">STAGE 00</span><span class="cat" id="hud-c">READY</span></div>
     <div id="stage"></div>
@@ -632,7 +624,7 @@ const Sound = {
 /* =====================================================================
    Item lifecycle. Every item gets a ctx; anything that outlives the DOM
    (timers, frame loops, window listeners) must go through it so it is
-   torn down when you press Next.
+   torn down when you move on to another cabinet.
    ===================================================================== */
 function makeCtx() {
   const ac = new AbortController(), tm = new Set(), rf = new Set();
@@ -1233,7 +1225,7 @@ item('brain', 'Footsteps Illusion', 'Both bars glide at one steady speed. So why
 /* =====================================================================
    GAMES
    ===================================================================== */
-item('game', 'Rock Paper Scissors Lizard Spock', 'The expanded edition: five moves, ten rules, zero mercy.', (el, ctx) => {
+item('game', 'RPS Lizard Spock', 'Rock Paper Scissors Lizard Spock: the expanded edition, with five moves, ten rules and zero mercy.', (el, ctx) => {
   const NAMES = { rock: 'Rock', paper: 'Paper', scissors: 'Scissors', lizard: 'Lizard', spock: 'Spock' };
   const BEATS = {
     rock: { scissors: 'crushes', lizard: 'crushes' }, paper: { rock: 'covers', spock: 'disproves' },
@@ -4517,7 +4509,7 @@ const CATS = {
   oracle: { label: 'ORACLE', color: 'var(--yellow)' }, brain: { label: 'BRAIN', color: 'var(--cyan)' },
   game: { label: 'GAME', color: 'var(--pink)' }, toy: { label: 'TOY', color: 'var(--green)' }, attract: { label: 'READY', color: 'var(--pink)' }
 };
-const stage = $('#stage'), screen = $('.screen'), bNext = $('#next'), bBack = $('#back');
+const stage = $('#stage'), screen = $('.screen'), bRand = $('#random');
 const hudN = $('#hud-n'), hudC = $('#hud-c');
 const nav = { hist: [], pos: -1, deck: [], seen: new Set() };
 let cur = null, busy = false, pendingJump = null;
@@ -4533,7 +4525,6 @@ function drawIdx() {
 }
 function updHud() {
   hudN.textContent = 'STAGE ' + String(Math.max(0, nav.pos + 1)).padStart(2, '0');
-  bBack.disabled = nav.pos <= 0;
 }
 const OUT = d => [{ opacity: 1, transform: 'none', filter: 'none' }, { opacity: 0, transform: `translateX(${-d * 50}px) skewX(${d * 12}deg)`, filter: 'blur(4px) hue-rotate(80deg)' }];
 const IN = d => [
@@ -4556,7 +4547,7 @@ async function render(it, d, quiet) {
   const body = h('div', { class: 'body' });
   const art = h('article', { class: 'item' }, it.title ? [h('h2', { class: 'title chrome' }, h('span', { text: it.title })), h('p', { class: 'blurb', text: it.blurb })] : null, body);
   stage.append(art);
-  try { it.mount(body, ctx); } catch (e) { console.error(e); body.append(h('p', { class: 'sub', text: 'This cabinet is out of order. Press Next.' })); }
+  try { it.mount(body, ctx); } catch (e) { console.error(e); body.append(h('p', { class: 'sub', text: 'This cabinet is out of order. Press Random.' })); }
   cur = ctx; updHud();
   const want = it.slug ? '#' + it.slug : '';
   if (location.hash !== want) { try { history.replaceState(null, '', want || location.pathname + location.search); } catch { /* sandboxed */ } }
@@ -4564,12 +4555,11 @@ async function render(it, d, quiet) {
   busy = false;
   if (pendingJump !== null) { const j = pendingJump; pendingJump = null; jump(j); }
 }
-function go(d) {
+function go() {
   if (busy) return;
-  if (d > 0) { if (nav.pos < nav.hist.length - 1) nav.pos++; else { nav.hist.push(drawIdx()); nav.pos++; } }
-  else { if (nav.pos <= 0) return; nav.pos--; }
+  nav.hist.push(drawIdx()); nav.pos = nav.hist.length - 1;
   nav.seen.add(nav.hist[nav.pos]);
-  render(ITEMS[nav.hist[nav.pos]], d);
+  render(ITEMS[nav.hist[nav.pos]], 1);
 }
 
 const slugify = t => t.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -4581,7 +4571,8 @@ function jump(i) {
   nav.deck = nav.deck.filter(k => k !== i); nav.seen.add(i);
   render(ITEMS[i], 1);
 }
-const hashIdx = () => { let v = ''; try { v = decodeURIComponent(location.hash.slice(1)); } catch { /* malformed */ } return v ? ITEMS.findIndex(it => it.slug === v) : -1; };
+const OLD_SLUGS = { 'rock-paper-scissors-lizard-spock': 'rps-lizard-spock' };   // links shared before the rename keep working
+const hashIdx = () => { let v = ''; try { v = decodeURIComponent(location.hash.slice(1)); } catch { /* malformed */ } v = OLD_SLUGS[v] || v; return v ? ITEMS.findIndex(it => it.slug === v) : -1; };
 window.addEventListener('hashchange', () => { const i = hashIdx(); if (i >= 0) jump(i); });
 const jumpD = $('#jump'), jumpL = $('#jump-list');
 function buildMenu() {
@@ -4605,8 +4596,8 @@ const ATTRACT = {
       h('h2', { class: 'att-big chrome' }, h('span', { text: 'Random things' })),
       h('p', { class: 'blurb', text: 'Tiny toys, puzzles and games. No sign-up, no purpose, plenty of neon.' }),
       parade,
-      h('button', { class: 'btn big', onclick: () => { Sound.coin(); go(1); } }, h('span', { class: 'blink', text: 'Insert coin' })),
-      h('p', { class: 'sub', text: 'Press Next for something random, or open the Menu to pick one.' })));
+      h('button', { class: 'btn big', onclick: () => { Sound.coin(); go(); } }, h('span', { class: 'blink', text: 'Insert coin' })),
+      h('p', { class: 'sub', text: 'Press Random for something new, or open the Menu to pick one.' })));
   }
 };
 
@@ -4627,8 +4618,7 @@ function setCalm(on, save) {
 setCalm(calm, false);
 fxB.addEventListener('click', () => { setCalm(!calm, true); Sound.blip(); });
 if (OSRM.addEventListener) OSRM.addEventListener('change', () => { if (store.get('calm', null) === null) setCalm(OSRM.matches, false); });
-bNext.addEventListener('click', () => go(1));
-bBack.addEventListener('click', () => go(-1));
+bRand.addEventListener('click', go);
 
 const startI = hashIdx();
 if (startI >= 0) { nav.hist.push(startI); nav.pos = 0; nav.seen.add(startI); render(ITEMS[startI], 1, true); }

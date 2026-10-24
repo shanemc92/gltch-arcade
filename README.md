@@ -18,7 +18,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Fifty-eight tiny games, 
 
 ## The cabinets
 
-Press **Next** for something random, or open the **Menu** to pick one. Next never repeats a cabinet until you have seen them all.
+Press **Random** for something new, or open the **Menu** to pick one. Random never repeats a cabinet until you have seen them all.
 
 ### Arcade and table games (20)
 
@@ -37,7 +37,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Neon Pinball](https://shanemc92.github.io/gltch-arcade/#neon-pinball) | Three balls, three bumpers and a lane bonus. Z or the left arrow and / or the right arrow work the flippers, and holding space pulls the plunger. On a phone, tap either side of the table and hold Launch. |
 | [Neon Pong](https://shanemc92.github.io/gltch-arcade/#neon-pong) | First to 7 wins. Your paddle is on the left: move the mouse or a finger over the court, or use W and S or the arrow keys. |
 | [Peg Drop](https://shanemc92.github.io/gltch-arcade/#peg-drop) | Pick a bet, drop a ball and watch it bounce through the pegs into a multiplier. |
-| [Rock Paper Scissors Lizard Spock](https://shanemc92.github.io/gltch-arcade/#rock-paper-scissors-lizard-spock) | The expanded edition: five moves, ten rules, zero mercy. |
+| [RPS Lizard Spock](https://shanemc92.github.io/gltch-arcade/#rps-lizard-spock) | Rock Paper Scissors Lizard Spock: the expanded edition, with five moves, ten rules and zero mercy. |
 | [Shard Storm](https://shanemc92.github.io/gltch-arcade/#shard-storm) | Crystal shards and bugs swoop in from above, and some of them dive. |
 | [Snake](https://shanemc92.github.io/gltch-arcade/#snake) | Eat, grow, and keep off the walls and your own tail. |
 | [Stack Tower](https://shanemc92.github.io/gltch-arcade/#stack-tower) | Drop each sliding block onto the tower. Anything hanging over the edge gets sliced off. |
@@ -144,7 +144,7 @@ Each cabinet is one `item()` call. Copy any existing one or start from this:
 item('toy', 'My Thing', 'One-line description shown under the title.', (el, ctx) => {
   const out = h('div', { class: 'msg', text: 'Ready' });
   const btn = h('button', { class: 'btn big', text: 'Press me', onclick: () => { say(out, 'Pressed'); Sound.coin(); } });
-  ctx.interval(() => { /* runs every second, stopped automatically on Next */ }, 1000);
+  ctx.interval(() => { /* runs every second, stopped automatically when you leave the cabinet */ }, 1000);
   el.append(btn, out);
 });
 ```
@@ -153,7 +153,7 @@ The category (`game`, `brain`, `oracle` or `toy`) sets the colour and menu secti
 
 Two rules keep things tidy:
 
-1. Anything that outlives the page elements (timers, animation loops, `window` listeners) goes through `ctx.on`, `ctx.timeout`, `ctx.interval`, `ctx.wait` or `ctx.loop`, so it is torn down when you press Next.
+1. Anything that outlives the page elements (timers, animation loops, `window` listeners) goes through `ctx.on`, `ctx.timeout`, `ctx.interval`, `ctx.wait` or `ctx.loop`, so it is torn down when you move on to another cabinet.
 2. Build elements with `h()` and its `text` option so visitor input never becomes HTML.
 
 ## Credits
