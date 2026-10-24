@@ -1,6 +1,6 @@
 # Gltch Arcade
 
-A neon, 80s-style arcade cabinet in a single HTML file. Sixty-two tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
+A neon, 80s-style arcade cabinet in a single HTML file. Sixty-four tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
 
 ![Gltch Arcade: the attract screen, Neon Drive, Fireworks and Lava Lamp](assets/preview.jpg)
 
@@ -8,29 +8,32 @@ A neon, 80s-style arcade cabinet in a single HTML file. Sixty-two tiny games, pu
 
 ## Highlights
 
-- **One file.** `index.html` (about 470 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
+- **One file.** `index.html` (about 510 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
 - **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
 - **Keyboard, mouse and touch.** Canvas games have touch controls.
 - **Motion and static are optional.** The **FX** button in the header switches off the animation and the CRT static. It starts off if your system asks for reduced motion (`prefers-reduced-motion`), and your choice is remembered on your device.
 - **Tickets and a prize counter.** Wins, high scores and time spent playing earn tickets, and the count sits in the top bar of the screen. Open the **Menu** and press **Cash out** for a high-score-style payout and a prize that is exactly as good as a real arcade's. More tickets, better junk.
+- **One cabinet is hidden.** It is not in the Menu, Random never picks it and it has no link. It is a tribute to a 1983 film, and the password is in the film.
 - **Private by default.** High scores, your tickets, the shared chip bank and your Pixel Pad drawing live in `localStorage` on your device and nowhere else.
 
 ## The cabinets
 
 Press **Random** for something new, or open the **Menu** to pick one. Random never repeats a cabinet until you have seen them all.
 
-### Arcade and table games (20)
+### Arcade and table games (22)
 
 | Cabinet | What it is |
 |---|---|
 | [Beat Lane](https://shanemc92.github.io/gltch-arcade/#beat-lane) | Hit each note as it crosses the line. Keys D, F, J and K, or tap the lanes. |
 | [Blackjack](https://shanemc92.github.io/gltch-arcade/#blackjack) | Get closer to 21 than the dealer without going over. |
+| [Block Fall](https://shanemc92.github.io/gltch-arcade/#block-fall) | Seven shapes drop into a ten-wide well. Fill a row to clear it and keep the stack off the ceiling. Hold, ghost piece, next three and levels. |
 | [Brick Glitch](https://shanemc92.github.io/gltch-arcade/#brick-glitch) | Smash every brick. Catch the falling capsules: M splits the ball, W widens the paddle, L fires lasers. |
 | [Bug Whacker](https://shanemc92.github.io/gltch-arcade/#bug-whacker) | Bugs pop out of the holes. Bop them before they hide. |
 | [Byte Maze](https://shanemc92.github.io/gltch-arcade/#byte-maze) | Collect every data bit while the bugs hunt you down. |
 | [Cave Flyer](https://shanemc92.github.io/gltch-arcade/#cave-flyer) | One button. Hold to climb, let go to drop, and thread the neon cave as it narrows. |
+| [Double Up](https://shanemc92.github.io/gltch-arcade/#double-up) | Slide the whole board and matching numbers merge into their double. Build a 2048 tile, then keep going. |
 | [Drop Four](https://shanemc92.github.io/gltch-arcade/#drop-four) | Line up four discs in a row, column or diagonal before the CPU does. |
 | [Higher or Lower](https://shanemc92.github.io/gltch-arcade/#higher-or-lower) | Will the next card be higher or lower? Aces are low. |
 | [Mainframe Breach](https://shanemc92.github.io/gltch-arcade/#mainframe-breach) | Type each command before the trace finds you. |
@@ -156,6 +159,8 @@ item('toy', 'My Thing', 'One-line description shown under the title.', (el, ctx)
 
 The category (`game`, `brain`, `oracle` or `toy`) sets the colour and menu section. The menu, shareable link and counters update themselves. Tickets come for free too: in a `game` or `brain` cabinet, `Sound.win()` and `best(key, score)` pay them out (toys and oracles do not). The menu sections are kept at an even length, so add cabinets in pairs.
 
+For a cabinet that should stay out of the Menu, Random and the links, register it with `secret(title, blurb, mount)` instead. The only way in is the trigger near the end of the script.
+
 Two rules keep things tidy:
 
 1. Anything that outlives the page elements (timers, animation loops, `window` listeners) goes through `ctx.on`, `ctx.timeout`, `ctx.interval`, `ctx.wait` or `ctx.loop`, so it is torn down when you move on to another cabinet.
@@ -163,7 +168,7 @@ Two rules keep things tidy:
 
 ## Credits
 
-Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. Nine Letters checks words against the common part of the public-domain ENABLE word list, with the rude ones taken out, stored in the page as a compressed string. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
+Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. Nine Letters checks words against the common part of the public-domain ENABLE word list, with the rude ones taken out, stored in the page as a compressed string. Block Fall and Double Up use well-known, unowned game mechanics with original names and code. The hidden cabinet is a fan tribute to the 1983 film WarGames, with a hand-drawn map; a few short lines of dialogue are quoted, and the film and its names belong to their owners. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
 
 ## License
 

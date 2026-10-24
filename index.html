@@ -551,6 +551,53 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
 .cube:active{cursor:grabbing}
 .cube-pad{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:min(100%,420px)}
 .cube-pad .btn{padding:8px 0;font-size:16px;text-shadow:none}
+.bf{width:min(100%,360px);aspect-ratio:360/420;height:auto;border-radius:12px;border:2px solid var(--accent);background:#07020f;display:block;touch-action:none;box-shadow:0 0 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.bf-pad{display:none;grid-template-columns:repeat(3,1fr);gap:6px;width:min(100%,360px)}
+.bf-pad .btn{padding:13px 0;font-size:18px;text-shadow:none;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.bf-pad .btn.w{font-size:13px;letter-spacing:.06em}
+@media (pointer:coarse){.bf-pad{display:grid}}
+.du-b{position:relative;width:min(100%,400px);aspect-ratio:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);border-radius:14px;border:2px solid var(--accent);background:rgba(0,0,0,.4);touch-action:none;box-shadow:0 0 18px color-mix(in srgb,var(--accent) 35%,transparent)}
+.du-c{padding:5px}
+.du-c::before{content:"";display:block;width:100%;height:100%;border-radius:8px;background:rgba(255,255,255,.05)}
+.du-t{position:absolute;left:0;top:0;width:25%;height:25%;padding:5px;transform:translate(calc(var(--x)*100%),calc(var(--y)*100%));transition:transform .12s ease-out;pointer-events:none}
+.du-t b{display:grid;place-items:center;width:100%;height:100%;border-radius:8px;border:2px solid var(--c);color:var(--c);background:color-mix(in srgb,var(--c) 14%,#0b0418);font-weight:900;font-size:clamp(20px,6.5vw,32px);text-shadow:0 0 10px var(--c);box-shadow:0 0 12px color-mix(in srgb,var(--c) 40%,transparent)}
+.du-t[data-d="3"] b{font-size:clamp(17px,5.4vw,27px)}
+.du-t[data-d="4"] b{font-size:clamp(14px,4.4vw,22px)}
+.calm .du-t{transition-duration:.01s}
+.wp [hidden]{display:none!important}
+.wp{width:min(100%,660px);display:flex;flex-direction:column;gap:10px;padding:12px;border-radius:14px;border:2px solid var(--green);background:radial-gradient(ellipse at 50% 30%,rgba(10,46,20,.85),rgba(2,10,5,.97));box-shadow:0 0 22px rgba(61,255,122,.3),inset 0 0 40px rgba(0,0,0,.6);font-family:var(--term);color:var(--green);text-shadow:0 0 6px rgba(61,255,122,.55);text-align:left}
+.wp-map{display:flex;flex-direction:column;gap:6px}
+.wp-cv{width:100%;aspect-ratio:640/326;height:auto;display:block;border:1px solid rgba(61,255,122,.5);border-radius:6px;background:#020a05}
+.wp-hd{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 14px;font-size:12px;letter-spacing:.08em}
+.wp-def{display:flex;align-items:center;gap:4px}
+.wp-def small{margin-right:4px;font-size:12px}
+.wp-def i{display:grid;place-items:center;width:22px;height:22px;border:1px solid currentColor;border-radius:4px;opacity:.28;font-style:normal;text-shadow:none}
+.wp-def i b{font-size:13px;font-weight:700}
+.wp-def i.on{opacity:1;background:currentColor}
+.wp-def i.on b{color:#020a05}
+.wp-st{color:var(--yellow)}
+.wp-mt{display:grid;grid-template-columns:8.5em 1fr 3.4em;align-items:center;gap:8px;font-size:12px;text-shadow:none}
+.wp-mt em{font-style:normal;text-align:right}
+.wp-bar{display:block;height:10px;border:1px solid currentColor;border-radius:3px;overflow:hidden}
+.wp-bar b{display:block;height:100%;width:0;background:currentColor;transition:width .3s}
+.calm .wp-bar b{transition-duration:.01s}
+.wp-tg{font-size:12px;color:var(--yellow);min-height:1.4em}
+.wp-log{min-height:150px;max-height:230px;overflow-y:auto;font-size:15px;line-height:1.5;overscroll-behavior:contain}
+.wp-l{min-height:1.5em;white-space:pre-wrap;overflow-wrap:anywhere}
+.wp-l.dim{opacity:.6}
+.wp-l.me{color:#d6ffe2;text-shadow:none}
+.wp-l.hot{color:var(--red);text-shadow:0 0 8px var(--red)}
+.wp-opts{display:flex;flex-wrap:wrap;gap:6px}
+.wp-opt{font:inherit;font-size:14px;color:var(--green);background:rgba(2,10,5,.7);border:1px solid rgba(61,255,122,.55);border-radius:6px;padding:7px 10px;cursor:pointer;text-align:left;text-shadow:inherit;white-space:pre-wrap;touch-action:manipulation}
+.wp-opt:hover,.wp-opt:focus-visible{background:rgba(61,255,122,.16);outline:none}
+.wp-opts>.wp-opt:not(.chip):not(.act){flex:1 1 100%}
+.wp-opt.gap{margin-top:8px}
+.wp-opt.chip.on{background:var(--green);color:#020a05;text-shadow:none}
+.wp-opt.act{font-weight:700;letter-spacing:.1em;border-color:var(--red);color:var(--red)}
+.wp-opt.act:last-child{border-color:var(--green);color:var(--green)}
+.wp-break{flex-basis:100%;height:0}
+.wp-row{display:flex;align-items:center;gap:8px}
+.wp-in{flex:1;min-width:0;font:inherit;font-size:16px;color:#d6ffe2;background:transparent;border:0;border-bottom:1px solid rgba(61,255,122,.5);padding:6px 2px;text-transform:uppercase;outline:none;caret-color:var(--green)}
 
 /* FX off (or the system asks for reduced motion): no animation, no static */
 .calm .grid,.calm .screen::after,.calm .blink,.calm .caret,.calm .bob,.calm .logo .lt,.calm .logo .ghost{animation:none!important}
@@ -763,6 +810,7 @@ function makeCtx() {
 
 const ITEMS = [];
 const item = (cat, title, blurb, mount) => ITEMS.push({ cat, title, blurb, mount });
+const secret = (title, blurb, mount) => ITEMS.push({ cat: 'secret', title, blurb, mount });   // not in the menu, not in Random, no link
 
 /* Pixel sprites (original designs), drawn as one SVG path each. */
 const SPR = {
@@ -5068,6 +5116,548 @@ item('brain', 'Neon Cube', 'A 3 by 3 twisty cube. Drag across a face to turn a l
 });
 
 /* =====================================================================
+   Batch 8: Block Fall, Double Up and the hidden terminal
+   ===================================================================== */
+item('game', 'Block Fall', 'Seven shapes drop into a ten-wide well. Fill a row to clear it and keep the stack off the ceiling. Arrows move, X and Z turn, space drops, C holds. On a phone, use the buttons.', (el, ctx) => {
+  const COLS = 10, ROWS = 20, CS = 20, BX = 10, BY = 10, W = 360, H = 420;
+  const SH = {
+    I: { n: 4, c: [[0, 1], [1, 1], [2, 1], [3, 1]], col: '#22e4ff' },
+    O: { n: 2, c: [[0, 0], [1, 0], [0, 1], [1, 1]], col: '#ffd319' },
+    T: { n: 3, c: [[1, 0], [0, 1], [1, 1], [2, 1]], col: '#b36bff' },
+    S: { n: 3, c: [[1, 0], [2, 0], [0, 1], [1, 1]], col: '#3dff7a' },
+    Z: { n: 3, c: [[0, 0], [1, 0], [1, 1], [2, 1]], col: '#ff4d6d' },
+    J: { n: 3, c: [[0, 0], [0, 1], [1, 1], [2, 1]], col: '#4d8bff' },
+    L: { n: 3, c: [[2, 0], [0, 1], [1, 1], [2, 1]], col: '#ff9a3d' }
+  };
+  const KINDS = Object.keys(SH), KICKS = [[0, 0], [-1, 0], [1, 0], [0, -1], [-2, 0], [2, 0], [-1, -1], [1, -1]];
+  const [cv, g] = makeCanvas('bf', W, H, 'Block Fall well, with the next pieces and the held piece on the right');
+  const btn = h('button', { class: 'btn big', text: 'Start' });
+  const st = h('div', { class: 'stats' }), msg = h('p', { class: 'sub' });
+  let board, cur = null, held, canHold, bag, queue, state = 'ready', score, lines, level, combo, acc, lockT, resets, clearRows, clearT;
+
+  const upd = () => stats(st, [['Score', score], ['Lines', lines], ['Level', level], ['Best', store.get('block-best', 0)]]);
+  const spin = (cells, n) => cells.map(([x, y]) => [n - 1 - y, x]);
+  const spinBack = (cells, n) => cells.map(([x, y]) => [y, n - 1 - x]);
+  const fits = (cells, px, py) => cells.every(([x, y]) => { const bx = px + x, by = py + y; return bx >= 0 && bx < COLS && by < ROWS && (by < 0 || !board[by][bx]); });
+  const gravity = () => Math.max(45, 1000 * Math.pow(.8 - (level - 1) * .007, level - 1));
+  function fill() { while (queue.length < 4) { if (!bag.length) bag = shuffle(KINDS.slice()); queue.push(bag.pop()); } }
+  function fresh() {
+    board = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+    bag = []; queue = []; held = null; cur = null; canHold = true; score = 0; lines = 0; level = 1; combo = -1; acc = 0; lockT = 0; resets = 0; clearRows = []; clearT = 0;
+    fill(); upd(); msg.textContent = '';
+  }
+  function spawn(k) {
+    const sh = SH[k];
+    cur = { k, n: sh.n, cells: sh.c.map(c => c.slice()), x: Math.floor((COLS - sh.n) / 2), y: k === 'I' ? -1 : 0 };
+    acc = 0; lockT = 0; resets = 0; canHold = true;
+    if (!fits(cur.cells, cur.x, cur.y)) over();
+  }
+  function next() { spawn(queue.shift()); fill(); }
+  function over() {
+    state = 'over'; cur = null; btn.textContent = 'Play again'; Sound.lose(); fx(cv, SHAKE, 400);
+    const rec = score > 0 && best('block-best', score); upd();
+    say(msg, rec ? `New best: ${score}!` : `Game over. ${score} points.`);
+  }
+  function touched() { if (!fits(cur.cells, cur.x, cur.y + 1)) { lockT = 0; if (++resets > 14) lock(); } }
+  function nudge(dx) { if (state === 'play' && fits(cur.cells, cur.x + dx, cur.y)) { cur.x += dx; touched(); Sound.tick(); } }
+  function turn(dir) {
+    if (state !== 'play' || cur.k === 'O') return;
+    const cells = dir > 0 ? spin(cur.cells, cur.n) : spinBack(cur.cells, cur.n);
+    for (const [kx, ky] of KICKS) if (fits(cells, cur.x + kx, cur.y + ky)) { cur.cells = cells; cur.x += kx; cur.y += ky; touched(); Sound.blip(); return; }
+  }
+  function soft() { if (state === 'play' && fits(cur.cells, cur.x, cur.y + 1)) { cur.y++; score++; acc = 0; upd(); } }
+  function drop() {
+    if (state !== 'play') return;
+    let d = 0; while (fits(cur.cells, cur.x, cur.y + d + 1)) d++;
+    cur.y += d; score += 2 * d; upd(); fx(cv, [{ transform: 'none' }, { transform: 'translateY(4px)' }, { transform: 'none' }], 140); lock();
+  }
+  function hold() {
+    if (state !== 'play' || !canHold) return;
+    const k = cur.k;
+    if (held) { const hk = held; held = k; spawn(hk); } else { held = k; next(); }
+    if (state === 'play') canHold = false;
+    Sound.select();
+  }
+  function lock() {
+    let top = false;
+    for (const [x, y] of cur.cells) { const by = cur.y + y; if (by < 0) top = true; else board[by][cur.x + x] = cur.k; }
+    if (top) return over();
+    clearRows = board.map((r, i) => (r.every(Boolean) ? i : -1)).filter(i => i >= 0);
+    if (clearRows.length) { state = 'clear'; clearT = 0; cur = null; Sound.coin(); }
+    else { combo = -1; Sound.tick(); next(); }
+  }
+  function finishClear() {
+    const n = clearRows.length;
+    board = board.filter((_, i) => !clearRows.includes(i));
+    while (board.length < ROWS) board.unshift(Array(COLS).fill(0));
+    combo++;
+    const pts = [0, 100, 300, 500, 800][n] * level + (combo > 0 ? 50 * combo * level : 0), was = level;
+    score += pts; lines += n; level = Math.min(20, 1 + Math.floor(lines / 10));
+    let t = (n === 4 ? 'Four lines! ' : n === 3 ? 'Triple. ' : n === 2 ? 'Double. ' : '') + '+' + pts + (combo > 0 ? ` · combo ×${combo}` : '');
+    if (n === 4) Sound.win();
+    if (level > was) { Sound.fanfare(3); t += ` · level ${level}`; }
+    say(msg, t);
+    clearRows = []; state = 'play'; upd(); next();
+  }
+  function toggle() {
+    if (state === 'play') { state = 'pause'; btn.textContent = 'Resume'; }
+    else if (state === 'pause') { state = 'play'; btn.textContent = 'Pause'; }
+    else if (state === 'ready' || state === 'over') { fresh(); state = 'play'; btn.textContent = 'Pause'; next(); Sound.select(); }
+  }
+
+  function cell(x, y, col, a = 1, s = CS) {
+    g.save(); g.globalAlpha = a; g.fillStyle = col; g.shadowColor = col; g.shadowBlur = 8;
+    g.fillRect(x + 1, y + 1, s - 2, s - 2); g.shadowBlur = 0;
+    g.fillStyle = 'rgba(255,255,255,.3)'; g.fillRect(x + 1, y + 1, s - 2, 3); g.fillRect(x + 1, y + 1, 3, s - 2);
+    g.fillStyle = 'rgba(0,0,0,.22)'; g.fillRect(x + 1, y + s - 4, s - 2, 3);
+    g.restore();
+  }
+  function mini(k, cx, cy, a) {
+    if (!k) return;
+    const sh = SH[k], x0 = Math.min(...sh.c.map(c => c[0])), y0 = Math.min(...sh.c.map(c => c[1])), w = Math.max(...sh.c.map(c => c[0])) - x0 + 1, hh = Math.max(...sh.c.map(c => c[1])) - y0 + 1, s = 14;
+    for (const [x, y] of sh.c) cell(cx - w * s / 2 + (x - x0) * s, cy - hh * s / 2 + (y - y0) * s, sh.col, a, s);
+  }
+  function paint() {
+    g.fillStyle = '#07020f'; g.fillRect(0, 0, W, H);
+    g.fillStyle = 'rgba(0,0,0,.4)'; g.fillRect(BX, BY, COLS * CS, ROWS * CS);
+    g.strokeStyle = 'rgba(34,228,255,.07)'; g.lineWidth = 1; g.beginPath();
+    for (let i = 1; i < COLS; i++) { g.moveTo(BX + i * CS + .5, BY); g.lineTo(BX + i * CS + .5, BY + ROWS * CS); }
+    for (let i = 1; i < ROWS; i++) { g.moveTo(BX, BY + i * CS + .5); g.lineTo(BX + COLS * CS, BY + i * CS + .5); }
+    g.stroke();
+    g.strokeStyle = 'rgba(255,43,214,.75)'; g.lineWidth = 2; g.strokeRect(BX - 1, BY - 1, COLS * CS + 2, ROWS * CS + 2);
+    for (let y = 0; y < ROWS; y++) for (let x = 0; x < COLS; x++) if (board[y][x]) cell(BX + x * CS, BY + y * CS, SH[board[y][x]].col);
+    if (cur) {
+      let d = 0; while (fits(cur.cells, cur.x, cur.y + d + 1)) d++;
+      g.save(); g.strokeStyle = SH[cur.k].col; g.globalAlpha = .5; g.lineWidth = 1.5;
+      for (const [x, y] of cur.cells) { const by = cur.y + y + d; if (by >= 0) g.strokeRect(BX + (cur.x + x) * CS + 2, BY + by * CS + 2, CS - 4, CS - 4); }
+      g.restore();
+      for (const [x, y] of cur.cells) { const by = cur.y + y; if (by >= 0) cell(BX + (cur.x + x) * CS, BY + by * CS, SH[cur.k].col); }
+    }
+    if (state === 'clear') {
+      g.fillStyle = `rgba(255,255,255,${Math.floor(clearT / 70) % 2 ? .85 : .4})`;
+      for (const r of clearRows) g.fillRect(BX, BY + r * CS, COLS * CS, CS);
+    }
+    g.fillStyle = '#a597cc'; g.font = `700 11px ${UIFONT}`; g.textAlign = 'left';
+    g.fillText('HOLD', 226, 22); g.strokeStyle = 'rgba(165,151,204,.4)'; g.lineWidth = 1; g.strokeRect(223.5, 30.5, 126, 54);
+    mini(held, 286, 57, canHold ? 1 : .35);
+    g.fillText('NEXT', 226, 116); g.strokeRect(223.5, 124.5, 126, 180);
+    for (let i = 0; i < 3; i++) mini(queue[i], 286, 152 + i * 56, 1);
+    if (state === 'ready' || state === 'pause' || state === 'over') {
+      g.fillStyle = 'rgba(7,2,15,.7)'; g.fillRect(BX, BY, COLS * CS, ROWS * CS);
+      g.textAlign = 'center'; g.fillStyle = '#fff'; g.shadowColor = '#ff2bd6'; g.shadowBlur = 12; g.font = `800 26px ${UIFONT}`;
+      g.fillText(state === 'ready' ? 'PRESS START' : state === 'pause' ? 'PAUSED' : 'GAME OVER', BX + COLS * CS / 2, 200);
+      g.shadowBlur = 0; g.fillStyle = '#a597cc'; g.font = `600 14px ${UIFONT}`;
+      g.fillText(state === 'over' ? `Score ${score}` : 'Tap the well or press space', BX + COLS * CS / 2, 226);
+    }
+  }
+
+  const KEYS = { ArrowLeft: 'l', a: 'l', A: 'l', ArrowRight: 'r', d: 'r', D: 'r', ArrowDown: 'd', s: 'd', S: 'd', ArrowUp: 'cw', w: 'cw', W: 'cw', x: 'cw', X: 'cw', z: 'ccw', Z: 'ccw', ' ': 'drop', c: 'hold', C: 'hold', p: 'pause', P: 'pause' };
+  ctx.on(window, 'keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input,textarea,select,dialog'))) return;
+    const a = KEYS[e.key]; if (!a) return;
+    e.preventDefault();
+    if (e.target === btn) btn.blur();
+    if (a === 'pause') { if (state === 'play' || state === 'pause') toggle(); return; }
+    if (state !== 'play') { if (a === 'drop' && !e.repeat) toggle(); return; }
+    if (a === 'l') nudge(-1); else if (a === 'r') nudge(1); else if (a === 'd') soft();
+    else if (e.repeat) return;
+    else if (a === 'cw') turn(1); else if (a === 'ccw') turn(-1); else if (a === 'drop') drop(); else if (a === 'hold') hold();
+  });
+  ctx.on(document, 'visibilitychange', () => { if (document.hidden && state === 'play') toggle(); });
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); if (state === 'play') turn(1); else toggle(); });
+  btn.addEventListener('click', () => { toggle(); btn.blur(); });
+  const rep = (b, fn) => {
+    let t = 0, id = 0;
+    const stop = () => { ctx.clear(t); ctx.clear(id); t = id = 0; };
+    b.addEventListener('pointerdown', e => { e.preventDefault(); fn(); stop(); t = ctx.timeout(() => { id = ctx.interval(fn, 70); }, 220); });
+    ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => b.addEventListener(ev, stop));
+  };
+  const pb = (txt, label, fn, cls, repeat) => { const b = h('button', { class: 'btn' + (cls ? ' ' + cls : ''), type: 'button', text: txt, 'aria-label': label }); if (repeat) rep(b, fn); else b.addEventListener('pointerdown', e => { e.preventDefault(); fn(); }); b.addEventListener('click', e => { if (e.detail === 0) fn(); }); return b; };
+  const pad = h('div', { class: 'bf-pad' },
+    pb('◀︎', 'Move left', () => nudge(-1), '', true), pb('Turn', 'Turn the piece', () => turn(1), 'w'), pb('▶︎', 'Move right', () => nudge(1), '', true),
+    pb('▼︎', 'Move down', soft, '', true), pb('Drop', 'Drop the piece', drop, 'w'), pb('Hold', 'Hold the piece', hold, 'w'));
+  fresh();
+  ctx.loop(dt => {
+    if (state === 'clear') { clearT += dt; if (clearT >= (RM.matches ? 120 : 300)) finishClear(); }
+    else if (state === 'play') {
+      if (fits(cur.cells, cur.x, cur.y + 1)) {
+        lockT = 0; acc += dt; const ms = gravity();
+        while (acc >= ms && fits(cur.cells, cur.x, cur.y + 1)) { acc -= ms; cur.y++; }
+      } else { acc = 0; lockT += dt; if (lockT >= 500) lock(); }
+    }
+    paint();
+  });
+  el.append(cv, pad, btn, msg, st);
+});
+
+item('game', 'Double Up', 'Slide the whole board and matching numbers merge into their double. Build a 2048 tile, then keep going. Arrows or WASD, or swipe the board.', (el, ctx) => {
+  const N = 4, COL = ['#7ae8ff', '#22e4ff', '#3dff7a', '#d6ff3d', '#ffd319', '#ff9a3d', '#ff4d6d', '#ff2bd6', '#b36bff', '#6b8bff', '#ffffff'];
+  const boardEl = h('div', { class: 'du-b', role: 'img', 'aria-label': 'Double Up board' }, Array.from({ length: N * N }, () => h('div', { class: 'du-c' })));
+  const st = h('div', { class: 'stats' }), msg = h('p', { class: 'sub' });
+  let grid, tiles, score, dead, reached, banked;
+  const upd = () => stats(st, [['Score', score], ['Best', store.get('double-best', 0)]]);
+  const inb = (x, y) => x >= 0 && y >= 0 && x < N && y < N;
+  function paintTile(t) {
+    const b = t.el.firstChild;
+    b.textContent = t.v; b.style.setProperty('--c', COL[Math.min(COL.length - 1, Math.log2(t.v) - 1)]); t.el.dataset.d = String(t.v).length;
+  }
+  function place(t) { t.el.style.setProperty('--x', t.x); t.el.style.setProperty('--y', t.y); }
+  function add(v, x, y) {
+    const t = { v, x, y, el: h('div', { class: 'du-t' }, h('b')) };
+    paintTile(t); place(t); boardEl.append(t.el); grid[y][x] = t; tiles.push(t);
+    fx(t.el.firstChild, POP, 220);
+    return t;
+  }
+  function spawn() {
+    const free = []; for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!grid[y][x]) free.push([x, y]);
+    if (free.length) { const [x, y] = pick(free); add(Math.random() < .9 ? 2 : 4, x, y); }
+  }
+  const canMove = () => grid.some((row, y) => row.some((t, x) => !t || (x < N - 1 && grid[y][x + 1]?.v === t.v) || (y < N - 1 && grid[y + 1][x]?.v === t.v)));
+  function bank() { if (!banked && score > 0) { banked = true; best('double-best', score); upd(); } }
+  function fresh() {
+    bank();
+    boardEl.querySelectorAll('.du-t').forEach(n => n.remove());
+    grid = Array.from({ length: N }, () => Array(N).fill(null)); tiles = []; score = 0; dead = false; reached = false; banked = false;
+    spawn(); spawn(); upd(); say(msg, 'Slide to merge matching numbers.');
+  }
+  function move(dx, dy) {
+    if (dead) return;
+    const ord = [...Array(N).keys()], xs = dx > 0 ? ord.slice().reverse() : ord, ys = dy > 0 ? ord.slice().reverse() : ord;
+    const made = new Set(), gone = [], merged = [];
+    let moved = false, gain = 0;
+    for (const y of ys) for (const x of xs) {
+      const t = grid[y][x]; if (!t) continue;
+      let nx = x, ny = y;
+      while (inb(nx + dx, ny + dy) && !grid[ny + dy][nx + dx]) { nx += dx; ny += dy; }
+      const o = inb(nx + dx, ny + dy) ? grid[ny + dy][nx + dx] : null;
+      grid[y][x] = null;
+      if (o && o.v === t.v && !made.has(o)) {
+        o.v *= 2; made.add(o); gain += o.v; t.x = o.x; t.y = o.y; gone.push(t); merged.push(o); moved = true;
+      } else {
+        grid[ny][nx] = t; if (nx !== x || ny !== y) moved = true; t.x = nx; t.y = ny;
+      }
+      place(t);
+    }
+    if (!moved) return;
+    tiles = tiles.filter(t => !gone.includes(t));
+    ctx.timeout(() => { gone.forEach(t => t.el.remove()); merged.forEach(o => { paintTile(o); fx(o.el.firstChild, [{ transform: 'scale(1)' }, { transform: 'scale(1.2)' }, { transform: 'scale(1)' }], 180); }); }, RM.matches ? 20 : 120);
+    if (gain) { score += gain; Sound.pop(); } else Sound.tick();
+    if (!reached && merged.some(o => o.v >= 2048)) { reached = true; Sound.win(); say(msg, '2048! Keep going for a bigger tile.'); }
+    spawn(); upd();
+    boardEl.setAttribute('aria-label', 'Double Up board. ' + grid.map(r => r.map(t => (t ? t.v : 'empty')).join(', ')).join('. Next row: '));
+    if (!canMove()) { dead = true; bank(); Sound.lose(); say(msg, `No moves left. ${score} points.`); }
+  }
+  const KEYS = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1], a: [-1, 0], d: [1, 0], w: [0, -1], s: [0, 1], A: [-1, 0], D: [1, 0], W: [0, -1], S: [0, 1] };
+  ctx.on(window, 'keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input,textarea,select,dialog'))) return;
+    const k = KEYS[e.key]; if (k) { e.preventDefault(); move(k[0], k[1]); }
+  });
+  let sx = 0, sy = 0, down = false;
+  boardEl.addEventListener('pointerdown', e => { sx = e.clientX; sy = e.clientY; down = true; grab(boardEl, e); });
+  boardEl.addEventListener('pointerup', e => {
+    if (!down) return; down = false;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+    if (Math.abs(dx) > Math.abs(dy)) move(Math.sign(dx), 0); else move(0, Math.sign(dy));
+  });
+  boardEl.addEventListener('pointercancel', () => { down = false; });
+  const dpad = h('div', { class: 'dpad' },
+    h('button', { class: 'btn u', text: '▲︎', 'aria-label': 'Slide up', onclick: () => move(0, -1) }),
+    h('button', { class: 'btn l', text: '◀︎', 'aria-label': 'Slide left', onclick: () => move(-1, 0) }),
+    h('button', { class: 'btn d', text: '▼︎', 'aria-label': 'Slide down', onclick: () => move(0, 1) }),
+    h('button', { class: 'btn r', text: '▶︎', 'aria-label': 'Slide right', onclick: () => move(1, 0) }));
+  fresh();
+  el.append(boardEl, msg, h('button', { class: 'btn big', text: 'New game', onclick: () => { fresh(); Sound.select(); } }), dpad, st);
+});
+
+/* The hidden one: a tribute terminal that is not in the menu. Type JOSHUA, or tap the logo seven times.
+   The map is a hand-drawn outline (lon,lat pairs) and the city names are the 1983 ones, as in the film. */
+const WOPR_LAND = [
+  '-168,65.6 -166,68.3 -162,70 -156.5,71.3 -150,70.5 -141,69.6 -135,69 -128,70 -121,69.5 -115,68 -108,68 -100,67.8 -95,68.5 -90,68.3 -85,69.5 -82,68 -84,66 -87,64.5 -90,63.5 -94,60.5 -93,58.7 -89,57 -85,55.3 -82,52.8 -80,51.3 -79,53.5 -78.5,56 -77,58.5 -78,60.8 -77.5,62.3 -73,62.2 -70,61 -66,60 -64,58.5 -61,56 -59,54 -56,52.5 -57,51.2 -61,50.2 -66,50.2 -68,49 -70,47.2 -66,48.5 -64.5,46.5 -62,45.5 -60.5,46.2 -64,44.5 -66,43.8 -67,44.8 -70,43.7 -70.8,42.4 -70,41.7 -72,41.2 -74,40.6 -74,39.5 -75.2,38.2 -76,37 -75.7,35.5 -77.5,34.6 -79.5,33.2 -81,31.8 -81.3,30 -80,27 -80.2,25.2 -81.2,25.3 -82.8,27.7 -83,29.6 -85,29.7 -87.5,30.3 -89.5,30.2 -89,29.1 -91,29.3 -94,29.6 -97,27.8 -97.3,25.5 -97.7,22.5 -96,19 -94.5,18.2 -91.5,18.6 -90.5,21 -87,21.5 -87.5,18.5 -88.3,16 -85,15.9 -83.4,15 -83.5,12 -83.8,10.5 -82.5,9 -80,9.4 -77.8,8.6 -77.3,7.7 -78,8.2 -80,7.3 -81.8,8.2 -83.5,8.4 -85.7,10 -87.4,12.7 -89.5,13.3 -91.5,14 -94,16 -97,15.8 -100,16.8 -103.5,18.5 -105.5,20.5 -105.5,22.5 -108,25 -111,28.5 -113,31 -114.7,31.7 -114.7,30 -112.5,27 -110,24 -109.5,23 -110.5,24.3 -112.3,25.3 -114.5,27.5 -115.8,30 -117.2,32.6 -118.5,34 -120.6,34.6 -122,36.8 -122.6,37.9 -123.8,39.5 -124.3,40.4 -124.1,43 -124,46.2 -124.7,48.4 -123,49 -125,50 -127.5,51.5 -130,54.5 -133,57 -136,58.5 -140,59.8 -144,60.2 -148,60.5 -151.5,59.5 -153.5,57.5 -157,56.5 -160,55.5 -164,54.5 -162,56.7 -158,58.7 -161.5,59.5 -162.5,60.5 -165.5,61.5 -164.5,63 -161,64.2 -166,64.5',
+  '-73,78.5 -66,80 -58,82 -40,83.6 -25,83.3 -19,81 -19,77 -21,74 -22,70.5 -26,68.5 -33,67 -40,65 -43,60.5 -46,60.3 -50,62 -53,65 -54,68 -55,70.5 -58,75 -66,76 -72,77',
+  '-90,72.8 -84,73.7 -76,72 -69,70 -62,66.5 -64,63.5 -68,62 -72,63.5 -78,64.6 -74,67.2 -78,69.3 -86,70.5',
+  '-118,71.2 -112,73.5 -104,73 -101,70 -106,68.8 -114,69.1', '-125,72 -118,74 -116,71.6 -123,71',
+  '-92,77 -82,76.5 -76,78.5 -64,81 -70,83 -88,82 -95,80', '-59.3,47.7 -53,46.7 -52.6,48.5 -55.5,51.6 -57.2,50.5 -58.8,48.5',
+  '-85,21.8 -82,23.2 -78.5,22.5 -74.2,20.3 -77.5,19.9 -81,21.7', '-74.4,18.4 -72.8,19.9 -69,19.3 -68.4,18.5 -71.2,17.7', '-128.3,50.8 -125,48.5 -123.5,48.4 -125.5,50',
+  '-77.3,8.6 -75.6,10.8 -72.5,12.2 -71.3,11.4 -68,10.6 -64,10.6 -61.2,10.5 -60,8.5 -57,6 -54,5.8 -52,4.6 -50.5,1.8 -50,-0.3 -48,-0.6 -44.5,-2.4 -40.5,-2.8 -37,-4.8 -35,-6.2 -34.9,-8 -37,-11.5 -38.8,-14 -39,-17.5 -40.5,-21 -42,-22.9 -44.5,-23.3 -48,-25.5 -48.7,-28 -51.5,-31.5 -53.5,-34 -56,-34.9 -57.2,-35.3 -57,-37 -59,-38.8 -62,-39.2 -63,-41 -65,-41 -64.3,-42.8 -66.5,-45.2 -65.5,-47.5 -67.8,-49.5 -69,-51.5 -68.4,-52.6 -71,-54 -74,-52 -75.5,-47 -73.5,-43 -73.8,-39 -72,-33 -71.5,-29 -70.6,-23 -70.2,-18.6 -75.5,-15.5 -79,-9 -81.3,-5 -80,-2.5 -80.7,0 -79,2 -77.4,4 -77.5,6.5',
+  '-9,37 -9.5,39 -8.8,41.8 -9,43.2 -3,43.4 -1.5,43.5 -1.3,46 -2.2,47.2 -4.7,48.3 -3,48.8 -1.5,48.7 -1.2,49.6 1.5,50.2 2.5,51.1 4,51.8 5,53.3 8.5,53.7 8.2,55.5 8.2,57 10.6,57.7 10.4,55.5 9.8,54.8 11,54 14,54 17,54.6 19.5,54.5 21,55.8 21,57.5 23.5,57.2 24.3,58.5 24.5,59.4 28,59.5 30,60 25,60.2 22,60.2 21.4,61.5 21.7,63.2 24.5,64.8 25,65.7 22,65.8 19,63.5 17.5,62.2 17.3,60.5 18.8,59.3 16.5,57.5 16,56.2 14,55.5 12.7,56.2 12,57.5 11,59 8,58.1 5.5,58.9 5,61 6.5,62.6 10,64 13,66 15,68 18,69.7 22,70.4 26,71 29,70.8 33,69.6 40,67.8 41,66.5 38,66 34.5,66.5 34,65 36.5,64 40,64.7 44,66.2 44,68.4 48,68.5 54,68.5 59,69.2 61,70 66,69.5 68,71 69,73 72,72.8 73.5,70 72.8,68.2 75,72 78,72.3 80,73.5 87,75 93,76 100,76.5 104,77.7 113,74 118,73.3 123,73 128,72 131,71.2 140,72.5 150,71.5 160,69.7 170,69.7 180,68.9 180,65.2 178.5,64.5 177,62.5 173,61.5 170,60 166,60.2 164,59.8 163,58 162,56 161,54.5 160,53 157.5,51.2 156,52 155.8,54.5 156.2,57.5 160,60.3 156,61.3 152,59.2 148,59.3 143,59.2 140.5,57.5 137.5,56 137,54.5 140.5,53.2 141,51.3 140.5,48.8 138.5,46.5 135.5,43.8 132.2,43 130.5,42.5 129.8,41 128.5,39.5 127.5,38.5 129.4,36.6 129.2,35.1 126.6,34.4 126.4,37.2 125,38 124.8,39.8 121.5,39 121.2,40.8 119.5,39.2 117.8,38.8 118.8,37.3 121.5,37.5 122.5,36.8 120.3,35.8 119.5,34.5 121,32.3 122,30.8 121.5,28.5 120,26.5 118.5,24.5 116,22.8 113.5,22.2 111,21.4 109.8,21.5 108,21.5 106.3,19.5 108.2,16 109.2,13.5 109,11.5 107,10.4 105,8.7 104.8,10.4 103,10.7 101.3,12.7 100.5,13.5 99.8,11.5 99.3,9 100.2,7 101.3,6 103.5,4.5 104.2,1.5 103.4,1.3 102,2.5 100.5,4.5 100,6.5 98.5,8.3 98.4,11 97.7,16 96.2,17.2 94.5,16.8 94.2,19 92.5,21 91.8,22.7 90.5,22 89,21.8 86.8,20.5 85,19.5 82.3,16.8 80.2,15.5 80.3,13 79.9,10.5 78,8.7 77.3,8.1 76.2,10 75,12.8 74,15 73,17.5 72.8,19.8 72.5,21.2 70.5,20.8 69,22.2 67,24.5 66.5,25.4 62,25.1 58,25.6 57,26.8 54.5,26.7 52,27.4 50.8,29.2 48.5,30 48,29.6 50.2,26.5 51.5,24.5 54,24.2 56,26 56.4,24.5 58.5,23.6 59.8,22.5 58,20.5 56,17.6 52.5,16.2 49,14.5 45,12.8 43.3,12.7 42.7,15 41,19 39,21.5 38.2,24 36.8,26 35.2,28.2 34.9,29.5 34.2,31.2 35,32.8 35.6,34.5 36,36.5 34,36.3 31,36.8 28,36.6 27,37.8 26.4,39.4 26,40.2 24,40.2 23.2,38.8 24,38 23,36.5 22,37 21.2,38.5 19.5,41 19.2,42.2 18,42.8 15.5,44 14,45.3 13.6,45.7 12.3,45.4 12.5,44 13.7,43.4 14.5,42 16,41.8 17.5,40.7 18.5,40.3 16.8,39 16.5,38 15.7,38.2 15.7,40 14,40.9 12.5,41.8 11,42.5 10.2,43.8 8.8,44.4 7,43.6 5,43.3 3.2,42.6 3,41.5 0.7,40.5 0,39.5 -0.5,38.2 -1.5,37.2 -2.5,36.8 -4.5,36.6 -5.4,36 -6.3,36.9 -7.4,37.2',
+  '-180,68.9 -175,67.7 -170.5,66.2 -169.5,65.6 -172.5,64.4 -180,65.2',
+  '32.5,31.2 29,30.9 25,31.7 20,32.2 19.5,30.5 15.5,32.2 11,33.2 10.2,34.2 11,36.8 9.5,37.3 5,36.8 0,35.8 -2,35.1 -5.5,35.8 -6.3,34 -8.5,33.3 -10,31 -9.8,29 -13,27.5 -14.5,26 -16,23.5 -17,21 -16.3,19 -16.5,16.5 -17.4,14.7 -16.7,13.4 -15.5,11.5 -13.5,9.5 -12,7.5 -9,5 -7.5,4.4 -4,5.2 -1,4.8 1.5,6 4.5,6.4 6,4.3 8,4.5 9.5,3.8 9.8,1 9,-1 10,-3 11.8,-5 12.2,-6.3 13.5,-10 13.2,-12.5 12,-17 11.8,-18.5 14.5,-22.5 14.8,-27 16.5,-29 17.8,-32 18.5,-34.2 20,-34.8 22,-34 25,-33.8 27.5,-33 30,-31 32.7,-28.5 32.8,-26 35.5,-24 35.4,-21.5 35,-19 36.5,-18 40.5,-15 40.2,-11 39.3,-8 39.2,-6 39.6,-4 41,-1.8 42.5,0 44,1.5 47,3.5 48.5,5 51,10.5 51.2,11.8 49,11.4 45,10.4 43.2,11.6 42.5,13 40.8,15.2 38.8,18 37.2,20.5 35.8,23.5 34.7,26 33.5,28 32.7,29.8',
+  '49.4,-12 50.4,-15.5 49.3,-18 47.2,-24.8 45,-25.4 43.3,-22.2 44.4,-19.5 44,-17 46.3,-15.7 48,-13.5',
+  '-5.7,50 1.4,51.1 1.7,52.8 0,53.5 -2,55.8 -2,57.5 -3.5,58.6 -5.2,58.6 -6,57 -5.5,55.5 -3,54.8 -3.2,53.4 -4.7,53.3 -4.2,51.6',
+  '-10,51.7 -6,52 -6,54.5 -8,55.3 -10,54', '-24,65.5 -18,66.3 -13.5,65 -18,63.4 -22.5,63.8',
+  '12,78 17,80.2 27,80 22,77.5', '51,71 56,74 69,77 66,75.5 58,73.5 55,70.8',
+  '130.8,33.9 135,34.5 136.8,34.5 139.8,35 141,38.5 141.5,41.4 140,40.5 139.8,38 137,37 136,36 133,35.5 131.5,34.5', '140,42 141.5,45.4 145.5,43.3 143.5,42 141,41.8', '129.8,33 131.5,34 131.8,31.5 130.5,31',
+  '142,46 143.5,49 143,53.5 142,54 142.2,49', '79.8,9.8 81.8,7.5 81.1,6.2 80.1,6.2 79.8,8.2', '120.1,23.1 121,25.1 122,24.9 121.2,22',
+  '120.5,18.5 122.2,18.4 121.6,14 124,13 122,12.5 120.7,14.2 120,16', '122,7 126.2,7.5 126.5,6 125,5.8 123.5,7.5',
+  '95.3,5.6 98,4 104,-1 106,-5.8 102,-4 98.5,0.5', '109,1.5 111,2 117,7 119,5 117.5,0.5 116,-3.8 110.5,-3 109,0', '105.2,-6.8 114.5,-7.8 114.5,-8.7 106,-7.5',
+  '119,-5.5 120.5,-3 121,1 125,1.5 120,0.5 119.8,-0.5 118.8,-3', '131,-1 141,-2.5 147,-6 150,-10.4 143,-9 138,-8 134,-4',
+  '114,-22 114,-26 115,-34 118,-35 123,-34 129,-31.5 134,-32.5 138,-35 140,-38 146,-39 150,-37.5 153,-31 153,-25 146,-19 142.5,-10.7 141,-13 136.5,-12 131,-12 129,-15 126,-14 122,-17',
+  '172.5,-34.4 178.5,-37.7 175,-41.5 174,-39.5', '172.7,-40.5 174.3,-41.7 171,-45 166.5,-46 168,-44'
+].map(s => s.split(' ').map(p => p.split(',').map(Number)));
+const WOPR_SEAS = [
+  '28,41.8 28.8,44 30.2,45.5 31.8,46.5 33.5,46 33,44.8 35.5,45.2 37.5,47 39.5,46.8 38,44.8 40,43.5 41.7,42 41.5,41.5 38,41 35,41.9 32,41.5 30,41.2',
+  '47.2,45 49,46.6 51.5,47 53,45.5 51,44.5 52.6,42 53,40.5 54,39 53.9,37.2 52,36.8 50.2,37.2 49,38.5 49.5,40.5 47.5,42.5 47,44'
+].map(s => s.split(' ').map(p => p.split(',').map(Number)));
+const WOPR_CITIES = {
+  us: [['SEATTLE', -122.3, 47.6], ['SAN FRANCISCO', -122.4, 37.8], ['LOS ANGELES', -118.2, 34.1], ['LAS VEGAS', -115.1, 36.2], ['DENVER', -105, 39.7], ['HOUSTON', -95.4, 29.8], ['CHICAGO', -87.6, 41.9], ['ATLANTA', -84.4, 33.7], ['WASHINGTON', -77, 38.9], ['NEW YORK', -74, 40.7]],
+  ru: [['MURMANSK', 33.1, 69], ['LENINGRAD', 30.3, 59.9], ['MOSCOW', 37.6, 55.8], ['KIEV', 30.5, 50.5], ['VOLGOGRAD', 44.5, 48.7], ['SVERDLOVSK', 60.6, 56.8], ['TASHKENT', 69.2, 41.3], ['NOVOSIBIRSK', 82.9, 55], ['IRKUTSK', 104.3, 52.3], ['VLADIVOSTOK', 131.9, 43.1]]
+};
+const WOPR_SILOS = { us: [[-109.5, 47.5], [-101.3, 48.4], [-104.8, 41.1], [-93.5, 38.7]], ru: [[35.5, 54], [45.6, 51.7], [59.5, 51], [89.8, 55.3]] };
+const WOPR_GAMES = [
+  { n: 'FALKEN’S MAZE', go: 'byte-maze' }, { n: 'BLACK JACK', go: 'blackjack' }, { n: 'GIN RUMMY' }, { n: 'HEARTS' }, { n: 'BRIDGE' }, { n: 'CHECKERS' }, { n: 'CHESS', chess: 1 }, { n: 'POKER', go: 'texas-holdem' },
+  { n: 'FIGHTER COMBAT', mil: 1 }, { n: 'GUERRILLA ENGAGEMENT', mil: 1 }, { n: 'DESERT WARFARE', mil: 1 }, { n: 'AIR-TO-GROUND ACTIONS', mil: 1 }, { n: 'THEATERWIDE TACTICAL WARFARE', mil: 1 },
+  { n: 'THEATERWIDE BIOTOXIC AND CHEMICAL WARFARE', mil: 1 }, { n: 'GLOBAL THERMONUCLEAR WAR', war: 1, gap: 1 }
+];
+secret('WOPR', 'Shall we play a game?', (el, ctx) => {
+  const MW = 640, MH = 326, TOP = 80, BOT = -40, MONO = '"Cascadia Mono", Consolas, Menlo, monospace';
+  const merc = la => Math.log(Math.tan(Math.PI / 4 + la * Math.PI / 360)), M0 = merc(TOP), M1 = merc(BOT);
+  const px = lo => (lo + 180) / 360 * MW, py = la => (M0 - merc(la)) / (M0 - M1) * MH;
+  const SIDE = { us: { name: 'UNITED STATES', col: '#22e4ff' }, ru: { name: 'SOVIET UNION', col: '#ff4d6d' } };
+  const DEFC = { 5: '#d6ffe2', 4: '#3dff7a', 3: '#ffd319', 2: '#ff9a3d', 1: '#ff4d6d' };
+  const CITY = { us: WOPR_CITIES.us.map(([n, lo, la]) => ({ n, lo, la, s: 'us' })), ru: WOPR_CITIES.ru.map(([n, lo, la]) => ({ n, lo, la, s: 'ru' })) };
+  const fine = matchMedia('(pointer:fine)').matches;
+  const norm = s => s.toUpperCase().replace(/'/g, '’').replace(/\s+/g, ' ').trim();
+
+  /* ----- the map: a static layer drawn once, then missiles and blasts on top ----- */
+  const [cv, g] = makeCanvas('wp-cv', MW, MH, 'Flat world map with missile paths between the United States and the Soviet Union');
+  const [base, bg] = makeCanvas('', MW, MH, '');
+  (function paintBase() {
+    bg.fillStyle = '#020a05'; bg.fillRect(0, 0, MW, MH);
+    bg.strokeStyle = 'rgba(61,255,122,.1)'; bg.lineWidth = 1; bg.beginPath();
+    for (let lo = -150; lo <= 180; lo += 30) { const x = Math.round(px(lo)) + .5; bg.moveTo(x, 0); bg.lineTo(x, MH); }
+    for (const la of [-30, 0, 30, 60]) { const y = Math.round(py(la)) + .5; bg.moveTo(0, y); bg.lineTo(MW, y); }
+    bg.stroke(); bg.lineJoin = 'round';
+    const trace = poly => { bg.beginPath(); poly.forEach(([lo, la], i) => (i ? bg.lineTo(px(lo), py(la)) : bg.moveTo(px(lo), py(la)))); bg.closePath(); };
+    bg.lineWidth = 1.1;
+    for (const p of WOPR_LAND) { trace(p); bg.fillStyle = 'rgba(61,255,122,.1)'; bg.fill(); bg.strokeStyle = 'rgba(61,255,122,.9)'; bg.stroke(); }
+    for (const p of WOPR_SEAS) { trace(p); bg.fillStyle = '#020a05'; bg.fill(); bg.strokeStyle = 'rgba(61,255,122,.55)'; bg.stroke(); }
+  })();
+  const bez = (m, u) => { const v = 1 - u; return [v * v * m.a[0] + 2 * v * u * m.c[0] + u * u * m.b[0], v * v * m.a[1] + 2 * v * u * m.c[1] + u * u * m.b[1]]; };
+  let time = 0, mapOn = false, me = 'us', picked = [];
+  const S = { miss: [], rings: [], craters: [], ev: [], hit: { us: new Set(), ru: new Set() }, sched: { us: new Set(), ru: new Set() } };
+  function resetSim() { S.miss = []; S.rings = []; S.craters = []; S.ev = []; S.hit = { us: new Set(), ru: new Set() }; S.sched = { us: new Set(), ru: new Set() }; meters.us.set(0); meters.ru.set(0); status.textContent = ''; }
+
+  /* ----- DOM ----- */
+  const defEls = [5, 4, 3, 2, 1].map(n => h('i', { style: 'color:' + DEFC[n] }, h('b', { text: n })));
+  const status = h('span', { class: 'wp-st', 'aria-hidden': 'true' });
+  const meter = k => { const b = h('b'), em = h('em', { text: '0%' }); return { el: h('div', { class: 'wp-mt', style: 'color:' + SIDE[k].col }, h('span', { text: SIDE[k].name }), h('i', { class: 'wp-bar' }, b), em), set(p) { b.style.width = p + '%'; em.textContent = p + '%'; } }; };
+  const meters = { us: meter('us'), ru: meter('ru') };
+  const tgLine = h('div', { class: 'wp-tg' });
+  const mapBox = h('div', { class: 'wp-map', hidden: true }, h('div', { class: 'wp-hd' }, h('span', { class: 'wp-def', role: 'img', 'aria-label': 'Defence condition' }, h('small', { text: 'DEFCON' }), defEls), status), cv, meters.us.el, meters.ru.el, tgLine);
+  const log = h('div', { class: 'wp-log', role: 'log', 'aria-live': 'polite' });
+  const optsEl = h('div', { class: 'wp-opts' });
+  const inp = h('input', { class: 'wp-in', type: 'text', autocomplete: 'off', autocapitalize: 'characters', spellcheck: 'false', 'aria-label': 'Type a reply' });
+  const row = h('form', { class: 'wp-row', hidden: true }, h('span', { text: '>', 'aria-hidden': 'true' }), inp);
+  const setDefcon = n => { defEls.forEach((e, i) => e.classList.toggle('on', 5 - i === n)); defEls[0].parentNode.setAttribute('aria-label', 'Defence condition ' + n); };
+  const showMap = on => { mapOn = on; mapBox.hidden = !on; };
+  setDefcon(5);
+
+  /* ----- terminal plumbing ----- */
+  let skip = false, pend = null;
+  const scroll = () => { log.scrollTop = log.scrollHeight; };
+  function put(text, cls) { log.append(h('div', { class: 'wp-l' + (cls ? ' ' + cls : ''), text })); scroll(); }
+  async function typeLine(text, cls) {
+    const line = h('div', { class: 'wp-l' + (cls ? ' ' + cls : '') }); log.append(line);
+    if (RM.matches || skip) { line.textContent = text; scroll(); return; }
+    for (let i = 0; i < text.length; i++) {
+      if (!ctx.alive) return;
+      line.textContent = text.slice(0, i + 1); scroll();
+      if (i % 3 === 0) Sound.tick();
+      await ctx.wait(20);
+      if (skip) { line.textContent = text; break; }
+    }
+  }
+  async function say(lines) {
+    skip = false;
+    for (const l of lines) {
+      if (!ctx.alive) return;
+      const [text, cls] = Array.isArray(l) ? l : [l, ''];
+      await typeLine(text, cls);
+      if (!skip && !RM.matches) await ctx.wait(text ? 110 : 50);
+    }
+    skip = false;
+  }
+  ctx.on(window, 'keydown', () => { skip = true; });
+  el.addEventListener('pointerdown', () => { skip = true; });
+  function wait(render, text) {
+    return new Promise(done => {
+      const finish = v => { pend = null; optsEl.replaceChildren(); row.hidden = true; done(v); };
+      pend = { text: s => text(s, finish) };
+      render(finish);
+      row.hidden = false;
+      if (fine) inp.focus({ preventScroll: true });
+    });
+  }
+  const logoff = () => { put('LOGGED OFF.', 'dim'); ctx.timeout(() => go(), 700); return new Promise(() => {}); };
+  function openCab(slug, name) {
+    put('LOADING ' + name + ' ...', 'dim');
+    ctx.timeout(() => { const i = ITEMS.findIndex(it => it.slug === slug); if (i >= 0) jump(i); else go(); }, 600);
+    return new Promise(() => {});
+  }
+  row.addEventListener('submit', e => {
+    e.preventDefault();
+    const s = norm(inp.value); inp.value = '';
+    if (!s || !pend) return;
+    put('> ' + s, 'me');
+    if (/^(LOG ?OFF|LOG ?OUT|EXIT|QUIT|BYE)$/.test(s)) { logoff(); return; }
+    if (!pend.text(s)) put('NOT UNDERSTOOD.', 'dim');
+  });
+  /* A question with buttons. Typing works too: the exact label, a number, an alias or an unambiguous start. */
+  const choose = list => wait(
+    finish => optsEl.replaceChildren(...list.map(o => h('button', { class: 'wp-opt' + (o.gap ? ' gap' : ''), type: 'button', text: o.label, onclick: () => { put('> ' + o.label.toUpperCase().trim(), 'me'); Sound.blip(); finish(o.value); } }))),
+    (s, finish) => {
+      let o = list.find(x => x.alias.includes(s));
+      if (!o && s.length > 1) { const m = list.filter(x => x.alias.some(a => a.startsWith(s))); if (m.length === 1) o = m[0]; }
+      if (o) { Sound.blip(); finish(o.value); return true; }
+      return false;
+    });
+
+  /* ----- the shooting match ----- */
+  const at = (ms, fn) => S.ev.push({ at: time + ms * (RM.matches ? .3 : 1), fn });
+  function fire(from, city, start) {
+    const silo = pick(WOPR_SILOS[from]), a = [px(silo[0]), py(silo[1])], b = [px(city.lo), py(city.la)], d = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    S.sched[city.s].add(city.n);
+    S.miss.push({ a, b, c: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2 - Math.max(26, Math.min(120, d * .45))], start, dur: RM.matches ? 650 : 1800 + d * 4.5 + rnd(500), col: SIDE[from].col, city, done: false });
+    if (!rnd(3)) Sound.noise(.3, .05, 500);
+  }
+  function impact(m) {
+    m.done = true; const c = m.city; S.hit[c.s].add(c.n);
+    S.rings.push({ x: m.b[0], y: m.b[1], t: time, col: m.col }); S.craters.push({ x: m.b[0], y: m.b[1], col: SIDE[c.s].col });
+    meters[c.s].set(Math.round(S.hit[c.s].size / CITY[c.s].length * 100)); status.textContent = 'IMPACT: ' + c.n;
+    Sound.noise(.45, .1, 180); Sound.tone(70, .4, 'sine', .1, -30);
+  }
+  function sim() {
+    const foe = me === 'us' ? 'ru' : 'us';
+    resetSim(); setDefcon(1);
+    return new Promise(done => {
+      at(0, () => { put('LAUNCH DETECTED.', 'hot'); picked.forEach((c, i) => fire(me, c, time + i * 220 + rnd(150))); });
+      at(1500, () => {
+        put('RETALIATION UNDERWAY.', 'hot');
+        shuffle(CITY[me].slice()).slice(0, Math.min(10, picked.length + 4)).forEach((c, i) => fire(foe, c, time + i * 180));
+      });
+      at(4500, () => {
+        put('ESCALATION. ALL FORCES COMMITTED.', 'hot');
+        [...CITY.us, ...CITY.ru].filter(c => !S.sched[c.s].has(c.n)).forEach((c, i) => fire(c.s === me ? foe : me, c, time + i * 130));
+        const last = Math.max(...S.miss.map(m => m.start + m.dur));
+        S.ev.push({ at: last + 1400, fn: () => { status.textContent = 'ALL TARGETS DESTROYED'; done(); } });
+      });
+    });
+  }
+  function frame() {
+    g.drawImage(base, 0, 0, MW, MH);
+    g.font = `10px ${MONO}`; g.textAlign = 'left';
+    for (const k of ['us', 'ru']) for (const c of CITY[k]) {
+      if (S.hit[k].has(c.n)) continue;
+      const x = px(c.lo), y = py(c.la), sel = k !== me && picked.includes(c);
+      g.fillStyle = SIDE[k].col; g.globalAlpha = sel ? 1 : .55; g.fillRect(x - 1.5, y - 1.5, 3, 3);
+      if (sel) { g.strokeStyle = SIDE[k].col; g.lineWidth = 1.2; g.beginPath(); g.arc(x, y, 6.5, 0, TAU); g.stroke(); g.fillText(c.n, x + 9, y + 3); }
+    }
+    g.globalAlpha = 1;
+    for (const m of S.miss) {
+      const e = Math.min(1, (time - m.start) / m.dur); if (e <= 0) continue;
+      g.strokeStyle = m.col; g.globalAlpha = e < 1 ? .9 : .3; g.lineWidth = 1.4; g.beginPath();
+      const n = Math.max(2, Math.ceil(e * 36));
+      for (let i = 0; i <= n; i++) { const p = bez(m, e * i / n); if (i) g.lineTo(p[0], p[1]); else g.moveTo(p[0], p[1]); }
+      g.stroke(); g.globalAlpha = 1;
+      if (e < 1) { const p = bez(m, e); g.save(); g.fillStyle = '#fff'; g.shadowColor = m.col; g.shadowBlur = 10; g.beginPath(); g.arc(p[0], p[1], 2.4, 0, TAU); g.fill(); g.restore(); }
+    }
+    for (const r of S.rings) { const a = (time - r.t) / 900; if (a >= 1) continue; g.strokeStyle = r.col; g.globalAlpha = 1 - a; g.lineWidth = 2; g.beginPath(); g.arc(r.x, r.y, 3 + a * 30, 0, TAU); g.stroke(); }
+    g.globalAlpha = 1;
+    for (const c of S.craters) { g.save(); g.fillStyle = '#fff'; g.shadowColor = c.col; g.shadowBlur = 12; g.beginPath(); g.arc(c.x, c.y, 3, 0, TAU); g.fill(); g.restore(); }
+  }
+  ctx.loop(dt => {
+    time += dt;
+    for (const e of S.ev) if (!e.ran && time >= e.at) { e.ran = true; e.fn(); }
+    for (const m of S.miss) if (!m.done && time >= m.start + m.dur) impact(m);
+    if (mapOn) frame();
+  });
+
+  /* ----- target list ----- */
+  const defFor = n => [5, 4, 4, 3, 3, 2, 2, 2, 2][n];
+  function target() {
+    const foe = me === 'us' ? 'ru' : 'us';
+    return wait(finish => {
+      const chips = CITY[foe].map(c => h('button', { class: 'wp-opt chip', type: 'button', text: c.n, 'aria-pressed': 'false', onclick: () => toggle(c) }));
+      const goB = h('button', { class: 'wp-opt act', type: 'button', text: 'LAUNCH', onclick: () => { put('> LAUNCH', 'me'); launch(); } });
+      const standB = h('button', { class: 'wp-opt act', type: 'button', text: 'STAND DOWN', onclick: () => { put('> STAND DOWN', 'me'); finish('stand'); } });
+      optsEl.replaceChildren(...chips, h('div', { class: 'wp-break' }), goB, standB);
+      const sync = () => {
+        chips.forEach((b, i) => { const on = picked.includes(CITY[foe][i]); b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on)); });
+        tgLine.textContent = picked.length ? 'TARGETS: ' + picked.map(c => c.n).join(', ') : 'NO TARGETS LISTED';
+        setDefcon(defFor(picked.length));
+      };
+      function toggle(c) {
+        const i = picked.indexOf(c);
+        if (i >= 0) picked.splice(i, 1); else if (picked.length >= 8) { put('MAXIMUM EIGHT TARGETS.', 'dim'); return; } else picked.push(c);
+        Sound.tick(); sync();
+      }
+      function launch() {
+        if (!picked.length) { put('NO TARGETS LISTED.', 'hot'); Sound.lose(); return; }
+        finish('launch');
+      }
+      pend = { text: s => {
+        if (s === 'LAUNCH') { launch(); return true; }
+        if (/^(STAND DOWN|ABORT|NONE|NO|CANCEL)$/.test(s)) { finish('stand'); return true; }
+        if (s === 'CLEAR') { picked.length = 0; sync(); return true; }
+        const hit = CITY[foe].filter(c => c.n === s); const pre = hit.length ? hit : CITY[foe].filter(c => c.n.startsWith(s));
+        if (s.length > 1 && pre.length === 1) { toggle(pre[0]); return true; }
+        return false;
+      } };
+      sync();
+    }, () => false);
+  }
+
+  /* ----- the story ----- */
+  async function montage() {
+    for (let i = 0; i < 12 && ctx.alive; i++) { put('SCENARIO ' + (1000 + rnd(9000)) + '   WINNER: NONE', 'dim'); if (!skip && !RM.matches) await ctx.wait(110); }
+  }
+  async function war() {
+    await say(['', 'WOULDN’T YOU PREFER A GOOD GAME OF CHESS?', '']);
+    const c = await choose([{ label: 'Chess', value: 'chess', alias: ['CHESS', '1', 'YES'] }, { label: 'Later. Global thermonuclear war.', value: 'war', alias: ['LATER', 'WAR', '2', 'GLOBAL THERMONUCLEAR WAR', 'NO'] }]);
+    if (c === 'chess') { await say(['', 'CHESS: NO BOARD ON THIS TERMINAL.', 'PERHAPS LATER.', '']); return 'menu'; }
+    await say(['', 'FINE.', '', 'WHICH SIDE DO YOU WANT?', '', '    1.  UNITED STATES', '    2.  SOVIET UNION', '']);
+    me = await choose([{ label: '1  United States', value: 'us', alias: ['1', 'UNITED STATES', 'US', 'USA', 'AMERICA'] }, { label: '2  Soviet Union', value: 'ru', alias: ['2', 'SOVIET UNION', 'USSR', 'SOVIET', 'RUSSIA'] }]);
+    picked = []; resetSim(); showMap(true); setDefcon(5);
+    await say(['', 'PLEASE LIST PRIMARY TARGETS BY CITY NAME.', 'TAP A CITY, OR TYPE ITS NAME.', '']);
+    const act = await target();
+    if (act === 'stand') {
+      setDefcon(5);
+      await say(['', 'STANDING DOWN.', 'NO MISSILES LAUNCHED.', 'WINNER: EVERYONE.', '', 'A STRANGE GAME.', 'THE ONLY WINNING MOVE IS NOT TO PLAY.', 'WELL DONE.', '']);
+      if (!store.get('wopr-peace', 0)) { store.set('wopr-peace', 1); Tix.add(20); await say(['20 TICKETS HAVE BEEN CREDITED TO YOUR ACCOUNT.', '']); }
+    } else {
+      [0, 1, 2].forEach(i => Sound.tone(880, .12, 'square', .07, 0, i * .22));
+      await say(['', 'LAUNCH AUTHORISED.']);
+      await sim();
+      await say(['', 'SIMULATION COMPLETE.', 'WINNER: NONE', '']);
+      await montage();
+      await say(['', 'A STRANGE GAME.', 'THE ONLY WINNING MOVE IS', 'NOT TO PLAY.', '', 'HOW ABOUT A NICE GAME OF CHESS?', '']);
+    }
+    return choose([{ label: 'Play again', value: 'again', alias: ['AGAIN', 'PLAY AGAIN', '1'] }, { label: 'Back to the games list', value: 'menu', alias: ['MENU', 'LIST', 'GAMES', '2'] }, { label: 'Tic-tac-toe', value: 'ttt', alias: ['TIC-TAC-TOE', 'TIC TAC TOE', '3'] }, { label: 'Log off', value: 'off', alias: ['LOG OFF', 'LOGOFF', '4'] }]);
+  }
+  async function session() {
+    await say(['CONNECTING TO WOPR ...', '', 'LOGON: JOSHUA', '', 'GREETINGS, PROFESSOR FALKEN.', '']);
+    for (;;) {
+      if (!ctx.alive) return;
+      showMap(false);
+      await say(['SHALL WE PLAY A GAME?', '']);
+      const list = WOPR_GAMES.map((gm, i) => ({ label: String(i + 1).padStart(2, ' ') + '  ' + gm.n, value: gm, gap: gm.gap, alias: [String(i + 1), gm.n, gm.n.replace('’', "'")].concat(gm.war ? ['GLOBAL', 'WAR', 'LIST GAMES'] : []) }));
+      const gm = await choose(list);
+      if (gm.go) { await openCab(gm.go, gm.n); return; }
+      if (gm.chess) { await say(['', 'CHESS: NO BOARD ON THIS TERMINAL.', 'PERHAPS LATER.', '']); continue; }
+      if (gm.mil) { await say(['', gm.n + ': THAT SCENARIO IS CLASSIFIED.', 'TRY SOMETHING PEACEFUL.', '']); continue; }
+      if (!gm.war) { await say(['', gm.n + ': NOT LOADED.', 'THE TAPE IS IN ANOTHER BUILDING.', '']); continue; }
+      let r;
+      do { r = await war(); } while (r === 'again');
+      if (r === 'ttt') { await openCab('tic-tac-toe', 'TIC-TAC-TOE'); return; }
+      if (r === 'off') { await logoff(); return; }
+    }
+  }
+  el.append(h('div', { class: 'wp' }, mapBox, log, optsEl, row));
+  session();
+});
+
+/* =====================================================================
    Marquee logo: hand-made 5x7 pixel font, drawn as SVG.
    ===================================================================== */
 const FONT = {
@@ -5128,7 +5718,7 @@ let lastFuzz = 0;
    ===================================================================== */
 const CATS = {
   oracle: { label: 'ORACLE', color: 'var(--yellow)' }, brain: { label: 'BRAIN', color: 'var(--cyan)' },
-  game: { label: 'GAME', color: 'var(--pink)' }, toy: { label: 'TOY', color: 'var(--green)' }, attract: { label: 'READY', color: 'var(--pink)' }
+  game: { label: 'GAME', color: 'var(--pink)' }, toy: { label: 'TOY', color: 'var(--green)' }, secret: { label: 'WOPR', color: 'var(--green)' }, attract: { label: 'READY', color: 'var(--pink)' }
 };
 const stage = $('#stage'), screen = $('.screen'), bRand = $('#random');
 const hudN = $('#hud-n'), hudC = $('#hud-c');
@@ -5137,8 +5727,9 @@ let cur = null, busy = false, pendingJump = null;
 
 function drawIdx() {
   if (!nav.deck.length) {
-    nav.deck = shuffle([...ITEMS.keys()].filter(i => !nav.seen.has(i)));
-    if (!nav.deck.length) nav.deck = shuffle([...ITEMS.keys()]);
+    const pool = [...ITEMS.keys()].filter(i => ITEMS[i].cat !== 'secret');
+    nav.deck = shuffle(pool.filter(i => !nav.seen.has(i)));
+    if (!nav.deck.length) nav.deck = shuffle(pool);
     const last = nav.hist[nav.pos], end = nav.deck.length - 1;
     if (end > 0 && nav.deck[end] === last) [nav.deck[0], nav.deck[end]] = [nav.deck[end], nav.deck[0]];
   }
@@ -5185,7 +5776,7 @@ function go() {
 }
 
 const slugify = t => t.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-ITEMS.forEach(it => { it.slug = slugify(it.title); });
+ITEMS.forEach(it => { it.slug = it.cat === 'secret' ? '' : slugify(it.title); });
 function jump(i) {
   if (busy) { pendingJump = i; return; }
   if (nav.pos >= 0 && nav.hist[nav.pos] === i) return;
@@ -5364,6 +5955,23 @@ setCalm(calm, false);
 fxB.addEventListener('click', () => { setCalm(!calm, true); Sound.blip(); });
 if (OSRM.addEventListener) OSRM.addEventListener('change', () => { if (store.get('calm', null) === null) setCalm(OSRM.matches, false); });
 bRand.addEventListener('click', go);
+
+/* The way in to the hidden terminal: type JOSHUA anywhere, or tap the logo seven times (for phones). */
+function openSecret() {
+  const i = ITEMS.findIndex(it => it.cat === 'secret');
+  if (i < 0 || cashing || jumpD.open || cashD.open) return;
+  Sound.blip(); jump(i);
+}
+let typed = '', logoTaps = [];
+addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1 || (e.target.closest && e.target.closest('input,textarea,select,dialog,[contenteditable]'))) return;
+  typed = (typed + e.key.toLowerCase()).slice(-6);
+  if (typed === 'joshua') { typed = ''; openSecret(); }
+});
+$('#logo').addEventListener('click', () => {
+  const t = performance.now(); logoTaps = logoTaps.filter(x => t - x < 3000); logoTaps.push(t);
+  if (logoTaps.length >= 7) { logoTaps = []; openSecret(); }
+});
 
 const startI = hashIdx();
 if (startI >= 0) { nav.hist.push(startI); nav.pos = 0; nav.seen.add(startI); render(ITEMS[startI], 1, true); }
