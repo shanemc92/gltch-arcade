@@ -8,11 +8,12 @@ A neon, 80s-style arcade cabinet in a single HTML file. Fifty-eight tiny games, 
 
 ## Highlights
 
-- **One file.** `index.html` (about 324 KB) holds all the CSS, JavaScript, pixel art and the hand-made pixel font.
+- **One file.** `index.html` (about 325 KB) holds all the CSS, JavaScript, pixel art and the hand-made pixel font.
 - **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
-- **Keyboard, mouse and touch.** Canvas games have touch controls, and `prefers-reduced-motion` is respected.
+- **Keyboard, mouse and touch.** Canvas games have touch controls.
+- **Motion and static are optional.** The **FX** button in the header switches off the animation and the CRT static. It starts off if your system asks for reduced motion (`prefers-reduced-motion`), and your choice is remembered on your device.
 - **Private by default.** High scores, the shared chip bank and your Pixel Pad drawing live in `localStorage` on your device and nowhere else.
 
 ## The cabinets
