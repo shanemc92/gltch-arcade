@@ -1,6 +1,6 @@
 # Gltch Arcade
 
-A neon, 80s-style arcade cabinet in a single HTML file. Fifty-eight tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
+A neon, 80s-style arcade cabinet in a single HTML file. Sixty-two tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
 
 ![Gltch Arcade: the attract screen, Neon Drive, Fireworks and Lava Lamp](assets/preview.jpg)
 
@@ -8,13 +8,14 @@ A neon, 80s-style arcade cabinet in a single HTML file. Fifty-eight tiny games, 
 
 ## Highlights
 
-- **One file.** `index.html` (about 325 KB) holds all the CSS, JavaScript, pixel art and the hand-made pixel font.
+- **One file.** `index.html` (about 470 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
 - **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
 - **Keyboard, mouse and touch.** Canvas games have touch controls.
 - **Motion and static are optional.** The **FX** button in the header switches off the animation and the CRT static. It starts off if your system asks for reduced motion (`prefers-reduced-motion`), and your choice is remembered on your device.
-- **Private by default.** High scores, the shared chip bank and your Pixel Pad drawing live in `localStorage` on your device and nowhere else.
+- **Tickets and a prize counter.** Wins, high scores and time spent playing earn tickets, and the count sits in the top bar of the screen. Open the **Menu** and press **Cash out** for a high-score-style payout and a prize that is exactly as good as a real arcade's. More tickets, better junk.
+- **Private by default.** High scores, your tickets, the shared chip bank and your Pixel Pad drawing live in `localStorage` on your device and nowhere else.
 
 ## The cabinets
 
@@ -45,7 +46,7 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Texas Hold’em](https://shanemc92.github.io/gltch-arcade/#texas-holdem) | Heads-up limit Hold’em against a CPU that does its maths. |
 | [Tic-Tac-Toe](https://shanemc92.github.io/gltch-arcade/#tic-tac-toe) | You against a CPU that has never lost. A draw is a moral victory. |
 
-### Brain teasers and puzzles (18)
+### Brain teasers and puzzles (22)
 
 | Cabinet | What it is |
 |---|---|
@@ -58,6 +59,9 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Echo](https://shanemc92.github.io/gltch-arcade/#echo) | Watch the pads light up, then play the pattern back. |
 | [Footsteps Illusion](https://shanemc92.github.io/gltch-arcade/#footsteps-illusion) | Both bars glide at one steady speed. So why do they seem to take turns stepping? |
 | [Gravity Slingshot](https://shanemc92.github.io/gltch-arcade/#gravity-slingshot) | Drag back from the probe to aim, then let go. |
+| [Neon Cube](https://shanemc92.github.io/gltch-arcade/#neon-cube) | A 3 by 3 twisty cube. Drag across a face to turn a layer, drag the dark space to look around, or use the buttons and the keys U D L R F B. Scramble it, then put every face back to one colour. |
+| [Nine Letters](https://shanemc92.github.io/gltch-arcade/#nine-letters) | Pick nine letters, then spend thirty seconds finding the longest word you can. Every word is checked against a list of 25,000. |
+| [Number Crunch](https://shanemc92.github.io/gltch-arcade/#number-crunch) | Six numbers, one target, thirty seconds. Combine two numbers at a time with + − × ÷ and get as close as you can. |
 | [Octagon Flip](https://shanemc92.github.io/gltch-arcade/#octagon-flip) | Each face has an arrow, and the two sit at 90° to each other through the coin. |
 | [Pair Up](https://shanemc92.github.io/gltch-arcade/#pair-up) | Turn over two cards at a time and find all eight matching pairs in as few moves as you can. |
 | [Password Gauntlet](https://shanemc92.github.io/gltch-arcade/#password-gauntlet) | Make a password that passes every rule. New rules unlock as you go, and they do not all get along. |
@@ -65,6 +69,7 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Reflex Test](https://shanemc92.github.io/gltch-arcade/#reflex-test) | Wait for green, then tap as fast as you can. Jump early and you’re out. |
 | [Slide 15](https://shanemc92.github.io/gltch-arcade/#slide-15) | Slide the tiles back into order, 1 to 15, with the gap in the bottom-right corner. |
 | [Spot the Phish](https://shanemc92.github.io/gltch-arcade/#spot-the-phish) | Ten emails. Some are scams, some are perfectly fine. |
+| [Sudoku](https://shanemc92.github.io/gltch-arcade/#sudoku) | Fill the grid so every row, column and 3 by 3 box holds 1 to 9 once. Three levels, pencil notes and hints, and every puzzle has exactly one answer. |
 | [What Comes Next?](https://shanemc92.github.io/gltch-arcade/#what-comes-next) | Spot the pattern and pick the next term. Some are numbers. |
 | [Word Heist](https://shanemc92.github.io/gltch-arcade/#word-heist) | Crack the hidden word one letter at a time. Six wrong guesses and the alarm goes off. |
 
@@ -124,7 +129,7 @@ To use a custom domain, add a `CNAME` file containing the domain (for example `a
 
 - **Content Security Policy.** A meta CSP sets `default-src 'none'` and only allows the inline script and styles plus `data:` images. The page cannot make network requests or load external scripts, fonts, images or frames.
 - **No HTML injection.** Anything a visitor types is written with `textContent`. `innerHTML` is only used for fixed markup that ships with the page.
-- **Minimal storage.** All keys are prefixed `gltch-arcade:`. They hold numbers (scores, chips, settings) plus the Pixel Pad drawing. Nothing typed into Password Gauntlet or Mainframe Breach is ever stored, and those fields switch off autocomplete, spellcheck and password-manager prompts.
+- **Minimal storage.** All keys are prefixed `gltch-arcade:`. They hold numbers (scores, tickets, chips, settings) plus the Pixel Pad drawing. Nothing typed into Password Gauntlet or Mainframe Breach is ever stored, and those fields switch off autocomplete, spellcheck and password-manager prompts.
 - **Safe phishing quiz.** Spot the Phish uses only made-up brands on the reserved `.invalid` top-level domain, and none of its links are clickable.
 - **Known limit.** GitHub Pages cannot send custom response headers, and `frame-ancestors` is ignored in a meta tag, so clickjacking protection is not possible there. If you self-host, add headers such as:
 
@@ -149,7 +154,7 @@ item('toy', 'My Thing', 'One-line description shown under the title.', (el, ctx)
 });
 ```
 
-The category (`game`, `brain`, `oracle` or `toy`) sets the colour and menu section. The menu, shareable link and counters update themselves.
+The category (`game`, `brain`, `oracle` or `toy`) sets the colour and menu section. The menu, shareable link and counters update themselves. Tickets come for free too: in a `game` or `brain` cabinet, `Sound.win()` and `best(key, score)` pay them out (toys and oracles do not). The menu sections are kept at an even length, so add cabinets in pairs.
 
 Two rules keep things tidy:
 
@@ -158,7 +163,7 @@ Two rules keep things tidy:
 
 ## Credits
 
-Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
+Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. Nine Letters checks words against the common part of the public-domain ENABLE word list, with the rude ones taken out, stored in the page as a compressed string. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
 
 ## License
 
