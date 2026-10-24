@@ -1,6 +1,6 @@
 # Gltch Arcade
 
-A neon, 80s-style arcade cabinet in a single HTML file. Sixty-four tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
+A neon, 80s-style arcade cabinet in a single HTML file. Seventy-two tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
 
 ![Gltch Arcade: the attract screen, Neon Drive, Fireworks and Lava Lamp](assets/preview.jpg)
 
@@ -8,7 +8,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Sixty-four tiny games, p
 
 ## Highlights
 
-- **One file.** `index.html` (about 510 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
+- **One file.** `index.html` (about 550 KB) holds all the CSS, JavaScript, pixel art, the hand-made pixel font and a 25,000-word list for Nine Letters.
 - **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
@@ -22,7 +22,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Sixty-four tiny games, p
 
 Press **Random** for something new, or open the **Menu** to pick one. Random never repeats a cabinet until you have seen them all.
 
-### Arcade and table games (22)
+### Arcade and table games (24)
 
 | Cabinet | What it is |
 |---|---|
@@ -41,15 +41,17 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Neon Pinball](https://shanemc92.github.io/gltch-arcade/#neon-pinball) | Three balls, three bumpers and a lane bonus. Z or the left arrow and / or the right arrow work the flippers, and holding space pulls the plunger. On a phone, tap either side of the table and hold Launch. |
 | [Neon Pong](https://shanemc92.github.io/gltch-arcade/#neon-pong) | First to 7 wins. Your paddle is on the left: move the mouse or a finger over the court, or use W and S or the arrow keys. |
 | [Peg Drop](https://shanemc92.github.io/gltch-arcade/#peg-drop) | Pick a bet, drop a ball and watch it bounce through the pegs into a multiplier. |
+| [Road Hop](https://shanemc92.github.io/gltch-arcade/#road-hop) | Hop across the road, ride the logs over the river and fill all five homes. Three lives, and every round the traffic gets faster. |
 | [RPS Lizard Spock](https://shanemc92.github.io/gltch-arcade/#rps-lizard-spock) | Rock Paper Scissors Lizard Spock: the expanded edition, with five moves, ten rules and zero mercy. |
 | [Shard Storm](https://shanemc92.github.io/gltch-arcade/#shard-storm) | Crystal shards and bugs swoop in from above, and some of them dive. |
+| [Sky Guard](https://shanemc92.github.io/gltch-arcade/#sky-guard) | Tap the sky to fire counter-missiles and save six cities from the rain of enemy missiles. Every silo has ten shots, so make them count. |
 | [Snake](https://shanemc92.github.io/gltch-arcade/#snake) | Eat, grow, and keep off the walls and your own tail. |
 | [Stack Tower](https://shanemc92.github.io/gltch-arcade/#stack-tower) | Drop each sliding block onto the tower. Anything hanging over the edge gets sliced off. |
 | [Target Lock](https://shanemc92.github.io/gltch-arcade/#target-lock) | Hit the targets before they shrink away. Smaller hits score more, and misses cost you accuracy. |
 | [Texas Hold’em](https://shanemc92.github.io/gltch-arcade/#texas-holdem) | Heads-up limit Hold’em against a CPU that does its maths. |
 | [Tic-Tac-Toe](https://shanemc92.github.io/gltch-arcade/#tic-tac-toe) | You against a CPU that has never lost. A draw is a moral victory. |
 
-### Brain teasers and puzzles (22)
+### Brain teasers and puzzles (24)
 
 | Cabinet | What it is |
 |---|---|
@@ -58,8 +60,10 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Brainteasers](https://shanemc92.github.io/gltch-arcade/#brainteasers) | Have a proper think, then tap the card to check. |
 | [Chroma Flip](https://shanemc92.github.io/gltch-arcade/#chroma-flip) | Every tap pushes that tile and the ones touching it on to the next colour: pink, then cyan, then yellow, then round again. |
 | [Code Cracker](https://shanemc92.github.io/gltch-arcade/#code-cracker) | Crack the 4-digit code in 10 tries. No digit repeats. |
+| [Colour Clash](https://shanemc92.github.io/gltch-arcade/#colour-clash) | A colour word shown in a different ink. Tap the colour of the ink, not the word, as many times as you can in thirty seconds. Keys 1 to 5 work too. |
 | [Defuse](https://shanemc92.github.io/gltch-arcade/#defuse) | Clear the board without touching a bomb. Numbers count the bombs touching that square. |
 | [Echo](https://shanemc92.github.io/gltch-arcade/#echo) | Watch the pads light up, then play the pattern back. |
+| [Flood Fill](https://shanemc92.github.io/gltch-arcade/#flood-fill) | Start in the top-left corner and paint the whole 12 by 12 board one colour in 27 moves or fewer. Every board can be won. Keys 1 to 6 work too. |
 | [Footsteps Illusion](https://shanemc92.github.io/gltch-arcade/#footsteps-illusion) | Both bars glide at one steady speed. So why do they seem to take turns stepping? |
 | [Gravity Slingshot](https://shanemc92.github.io/gltch-arcade/#gravity-slingshot) | Drag back from the probe to aim, then let go. |
 | [Neon Cube](https://shanemc92.github.io/gltch-arcade/#neon-cube) | A 3 by 3 twisty cube. Drag across a face to turn a layer, drag the dark space to look around, or use the buttons and the keys U D L R F B. Scramble it, then put every face back to one colour. |
@@ -76,7 +80,7 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [What Comes Next?](https://shanemc92.github.io/gltch-arcade/#what-comes-next) | Spot the pattern and pick the next term. Some are numbers. |
 | [Word Heist](https://shanemc92.github.io/gltch-arcade/#word-heist) | Crack the hidden word one letter at a time. Six wrong guesses and the alarm goes off. |
 
-### Oracles and chance (6)
+### Oracles and chance (8)
 
 | Cabinet | What it is |
 |---|---|
@@ -85,13 +89,15 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Decision Wheel](https://shanemc92.github.io/gltch-arcade/#decision-wheel) | Can’t decide? Let the wheel choose. |
 | [Dice Tower](https://shanemc92.github.io/gltch-arcade/#dice-tower) | Pick a die and roll it. Natural 20s get the full fanfare. |
 | [Fortune Cookie](https://shanemc92.github.io/gltch-arcade/#fortune-cookie) | Crack it open and read your destiny. Please do not eat the paper. |
+| [Mind Reader](https://shanemc92.github.io/gltch-arcade/#mind-reader) | Think of a number from 1 to 63, say whether it is on each of six cards, and the cabinet names it. A neat bit of binary. |
 | [Octagon Oracle](https://shanemc92.github.io/gltch-arcade/#octagon-oracle) | Ask a yes or no question, then tap the octagon. |
+| [Tarot Draw](https://shanemc92.github.io/gltch-arcade/#tarot-draw) | Three cards for your past, present and future from a neon deck of twenty-two, some of them reversed. For entertainment only. |
 
-### Toys (14)
+### Toys (16)
 
 | Cabinet | What it is |
 |---|---|
-| [Band Name Generator](https://shanemc92.github.io/gltch-arcade/#band-name-generator) | Every 80s band needed a name, a debut album and a questionable haircut. |
+| [Band Name Gen](https://shanemc92.github.io/gltch-arcade/#band-name-gen) | Every 80s band needed a name, a debut album and a questionable haircut. |
 | [Beat Box](https://shanemc92.github.io/gltch-arcade/#beat-box) | A 16-step drum machine. Tap squares to build a loop, press play and tweak the tempo. |
 | [Bubble Wrap](https://shanemc92.github.io/gltch-arcade/#bubble-wrap) | An endless supply. Tap a bubble, or drag across the sheet to pop a whole row. |
 | [Dad Jokes](https://shanemc92.github.io/gltch-arcade/#dad-jokes) | Certified groan-grade material. Read the setup, brace yourself, then reveal the punchline. |
@@ -102,7 +108,9 @@ Press **Random** for something new, or open the **Menu** to pick one. Random nev
 | [Life Lab](https://shanemc92.github.io/gltch-arcade/#life-lab) | Conway’s Game of Life. Draw cells, press play, and watch four simple rules build gliders, blinkers and glorious chaos. |
 | [Morse Station](https://shanemc92.github.io/gltch-arcade/#morse-station) | Type a message to see and hear it in Morse code, or switch to Decode and name the letter from the beeps. |
 | [Neon Orbits](https://shanemc92.github.io/gltch-arcade/#neon-orbits) | Roll a circle inside a circle and trace the path. |
+| [Pendulum Wave](https://shanemc92.github.io/gltch-arcade/#pendulum-wave) | Fifteen pendulums, each a touch quicker than the last, drift into waves and snake patterns, then snap back into line. Turn the sound on to hear them play notes. |
 | [Pixel Pad](https://shanemc92.github.io/gltch-arcade/#pixel-pad) | Draw 16 by 16 pixel art. Pick a colour, click or drag to paint, and download it as a crisp PNG. |
+| [Sand Drop](https://shanemc92.github.io/gltch-arcade/#sand-drop) | Hold and drag to pour falling sand in four colours or a mix. Build walls, rub things out, and watch it pile up. |
 | [Useless Facts](https://shanemc92.github.io/gltch-arcade/#useless-facts) | Facts you will never need, delivered at 1200 baud. |
 | [Warp Drive](https://shanemc92.github.io/gltch-arcade/#warp-drive) | Hold Engage, or the space bar, to punch it. Move your pointer over the stars to steer. |
 
@@ -168,7 +176,7 @@ Two rules keep things tidy:
 
 ## Credits
 
-Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. Nine Letters checks words against the common part of the public-domain ENABLE word list, with the rude ones taken out, stored in the page as a compressed string. Block Fall and Double Up use well-known, unowned game mechanics with original names and code. The hidden cabinet is a fan tribute to the 1983 film WarGames, with a hand-drawn map; a few short lines of dialogue are quoted, and the film and its names belong to their owners. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
+Built by Shane McElhinney. Every game, sprite, sound and the pixel font are original. Nine Letters checks words against the common part of the public-domain ENABLE word list, with the rude ones taken out, stored in the page as a compressed string. Block Fall, Double Up, Road Hop, Sky Guard, Colour Clash and Flood Fill use well-known, unowned game mechanics with original names and code, and the Tarot Draw readings are original too. The hidden cabinet is a fan tribute to the 1983 film WarGames, with a hand-drawn map; a few short lines of dialogue are quoted, and the film and its names belong to their owners. 80s Trivia and the arcade facts mention real films, games, people and brands by name for quiz purposes only; those names belong to their owners, and this project is not affiliated with any of them.
 
 ## License
 
