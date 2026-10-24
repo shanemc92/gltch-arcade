@@ -86,8 +86,10 @@ button{font:inherit;color:inherit}
 .hud .done{color:var(--yellow);text-shadow:0 0 8px var(--yellow)}
 #stage{position:relative}
 
-.deck{position:sticky;bottom:0;z-index:5;display:flex;justify-content:center;gap:clamp(16px,6vw,48px);padding:18px 0 calc(12px + env(safe-area-inset-bottom,0px));background:radial-gradient(60% 90% at 50% 70%,rgba(10,4,20,.9) 40%,transparent 100%)}
-.arc{--c:var(--pink);width:clamp(118px,32vw,170px);padding:13px 10px 15px;border:0;border-radius:14px;cursor:pointer;font-weight:800;font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--night);background:var(--c);
+/* Back and Next sit above the screen, so they stay put however tall the cabinet below is */
+.deck{display:flex;justify-content:center;gap:clamp(16px,6vw,48px);padding:0 0 16px}
+.deck+.screen{margin-bottom:16px}
+.arc{--c:var(--pink);width:clamp(118px,32vw,170px);padding:11px 10px 13px;border:0;border-radius:14px;cursor:pointer;font-weight:800;font-size:18px;letter-spacing:.18em;text-transform:uppercase;color:var(--night);background:var(--c);
   box-shadow:0 6px 0 color-mix(in srgb,var(--c) 45%,#000),0 0 26px color-mix(in srgb,var(--c) 60%,transparent);transition:transform .08s,box-shadow .08s,filter .2s;touch-action:manipulation}
 .arc:active{transform:translateY(5px);box-shadow:0 1px 0 color-mix(in srgb,var(--c) 45%,#000),0 0 14px color-mix(in srgb,var(--c) 60%,transparent)}
 .arc:disabled{filter:grayscale(.85) brightness(.55);cursor:default;transform:none}
@@ -361,7 +363,9 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
 .cc-play{display:flex;flex-wrap:wrap;gap:20px;justify-content:center;align-items:flex-start;width:100%}
 .cc-pad{display:grid;grid-template-columns:repeat(3,64px);gap:8px}
 .cc-pad .btn{padding:10px 0;font-size:18px}
+.cc-pad .btn.w{font-size:14px;letter-spacing:.04em}
 .cc-hist{display:flex;flex-direction:column;gap:6px;width:min(100%,260px);max-height:300px;overflow:auto}
+.cc-hist:empty{display:none}   /* no guesses yet: let the keypad sit in the middle */
 .cc-row{display:flex;align-items:center;gap:12px;padding:6px 10px;border-radius:8px;background:rgba(0,0,0,.3)}
 .cc-row b{color:var(--dim);font-size:12px;width:1.6em}
 .cc-g{font-family:var(--term);font-size:20px;letter-spacing:.1em;flex:1;text-align:left}
@@ -494,15 +498,15 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
     <button class="btn snd" id="snd" aria-pressed="false">Sound off</button>
     <button class="btn snd fx" id="fx" aria-pressed="true" aria-label="Motion and static effects" title="Motion and static effects">FX on</button>
   </header>
+  <nav class="deck" aria-label="Arcade navigation">
+    <button class="arc back" id="back" disabled>Back</button>
+    <button class="arc next" id="next">Next</button>
+  </nav>
   <section class="screen">
     <div class="hud"><span id="hud-n">STAGE 00</span><span class="cat" id="hud-c">READY</span></div>
     <div id="stage"></div>
     <noscript><p class="sub">This arcade needs JavaScript switched on.</p></noscript>
   </section>
-  <nav class="deck" aria-label="Arcade navigation">
-    <button class="arc back" id="back" disabled>Back</button>
-    <button class="arc next" id="next">Next</button>
-  </nav>
 </main>
 <dialog id="jump" aria-labelledby="jump-h"><div class="jump-in"><div class="jump-head"><h2 id="jump-h">All cabinets</h2><button class="btn sm" id="jump-x">Close</button></div><p class="sub">Every cabinet has its own link, so you can bookmark or share one.</p><div id="jump-list"></div></div></dialog>
 <footer class="foot">&copy; 2026 Shane McElhinney. Everything runs in your browser. High scores stay on this device.</footer>
@@ -2778,7 +2782,7 @@ item('brain', 'Code Cracker', 'Crack the 4-digit code in 10 tries. No digit repe
   const st = h('div', { class: 'stats' });
   const upd = () => stats(st, [['Tries left', 10 - tries], ['Best', store.get('cc-best', null) === null ? '-' : store.get('cc-best', 0) + ' tries']]);
   const key = d => h('button', { class: 'btn', text: String(d), 'aria-label': 'Digit ' + d, onclick: () => type(d) });
-  const pad = h('div', { class: 'cc-pad' }, [1, 2, 3, 4, 5, 6, 7, 8, 9].map(key), h('button', { class: 'btn', text: 'Del', onclick: () => del() }), key(0), h('button', { class: 'btn', text: 'Enter', onclick: () => enter() }));
+  const pad = h('div', { class: 'cc-pad' }, [1, 2, 3, 4, 5, 6, 7, 8, 9].map(key), h('button', { class: 'btn w', text: 'Del', onclick: () => del() }), key(0), h('button', { class: 'btn w', text: 'Enter', onclick: () => enter() }));
   function paint() { [...slots.children].forEach((sp, i) => { sp.textContent = guess[i] === undefined ? '' : String(guess[i]); sp.classList.toggle('on', i === guess.length && !done); }); }
   function newGame() { code = shuffle([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]).slice(0, 4); guess = []; tries = 0; done = false; hist.replaceChildren(); msg.textContent = ''; paint(); upd(); }
   function type(d) {
