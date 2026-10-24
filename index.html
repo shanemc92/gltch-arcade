@@ -4184,17 +4184,27 @@ function buildLogo(text) {
 $('#logo').append(buildLogo('GLTCH ARCADE'));
 
 /* =====================================================================
-   Fuzz overlay: tiny noise canvas scaled up. Static when reduced motion.
+   Fuzz overlay: a noise canvas scaled up. Static when reduced motion.
+   The grain stays about 3 CSS px (the scanline period) on any screen, so it
+   does not turn into big blocks on a large monitor. On very large screens the
+   cells grow a little to cap the pixels painted every frame.
    ===================================================================== */
 const fuzz = $('#fuzz'), fg = fuzz.getContext('2d');
-fuzz.width = 160; fuzz.height = 100;
-const noise = fg.createImageData(160, 100);
+let noise;
 function paintFuzz() {
   const d = noise.data;
   for (let i = 0; i < d.length; i += 4) { const v = Math.random() * 255 | 0; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; }
   fg.putImageData(noise, 0, 0);
 }
-paintFuzz();
+function sizeFuzz() {
+  const w = innerWidth, h = innerHeight, cell = Math.max(3, Math.sqrt(w * h / 450000));
+  fuzz.width = Math.max(1, Math.ceil(w / cell)); fuzz.height = Math.max(1, Math.ceil(h / cell));
+  noise = fg.createImageData(fuzz.width, fuzz.height);
+  paintFuzz();
+}
+sizeFuzz();
+let fuzzResize = 0;
+addEventListener('resize', () => { cancelAnimationFrame(fuzzResize); fuzzResize = requestAnimationFrame(sizeFuzz); });
 let lastFuzz = 0;
 (function fuzzLoop(t) { if (!RM.matches && t - lastFuzz > 70) { paintFuzz(); lastFuzz = t; } requestAnimationFrame(fuzzLoop); })(0);
 
