@@ -74,6 +74,10 @@ button{font:inherit;color:inherit}
 .snd{--c:var(--yellow);font-size:12px;padding:8px 12px;white-space:nowrap}
 .snd.fx{--c:var(--cyan)}
 .snd.go{--c:var(--green)}
+/* Sound and FX swap their labels; an invisible copy of the longer one keeps each button the same width either way */
+#snd::after,#fx::after{display:block;height:0;overflow:hidden;visibility:hidden}
+#snd::after{content:"Sound off"}
+#fx::after{content:"FX off"}
 @media (max-width:560px){.marquee{flex-wrap:wrap;gap:10px 8px}.logo{flex:1 0 100%}.marquee .snd{flex:1 1 0;padding:8px 6px}}
 
 .screen{--accent:var(--pink);position:relative;border-radius:26px;padding:12px clamp(12px,3.2vw,26px) 26px;min-height:560px;overflow:hidden;
