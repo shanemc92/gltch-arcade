@@ -1,6 +1,6 @@
 # Gltch Arcade
 
-A neon, 80s-style arcade cabinet in a single HTML file. Fifty-five tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
+A neon, 80s-style arcade cabinet in a single HTML file. Fifty-eight tiny games, puzzles, toys and oracles with fluid animations, CRT fuzz and synthesised sound. No frameworks, no build step, no tracking.
 
 ![Gltch Arcade: the attract screen, Neon Drive, Fireworks and Lava Lamp](assets/preview.jpg)
 
@@ -8,7 +8,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Fifty-five tiny games, p
 
 ## Highlights
 
-- **One file.** `index.html` (about 305 KB) holds all the CSS, JavaScript, pixel art and the hand-made pixel font.
+- **One file.** `index.html` (about 324 KB) holds all the CSS, JavaScript, pixel art and the hand-made pixel font.
 - **No dependencies, no network.** Nothing is fetched after the page loads, so it works offline.
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
@@ -19,7 +19,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Fifty-five tiny games, p
 
 Press **Next** for something random, or open the **Menu** to pick one. Next never repeats a cabinet until you have seen them all.
 
-### Arcade and table games (19)
+### Arcade and table games (20)
 
 | Cabinet | What it is |
 |---|---|
@@ -33,6 +33,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Higher or Lower](https://shanemc92.github.io/gltch-arcade/#higher-or-lower) | Will the next card be higher or lower? Aces are low. |
 | [Mainframe Breach](https://shanemc92.github.io/gltch-arcade/#mainframe-breach) | Type each command before the trace finds you. |
 | [Neon Drive](https://shanemc92.github.io/gltch-arcade/#neon-drive) | An endless synthwave highway full of slow traffic. |
+| [Neon Pinball](https://shanemc92.github.io/gltch-arcade/#neon-pinball) | Three balls, three bumpers and a lane bonus. Z or the left arrow and / or the right arrow work the flippers, and holding space pulls the plunger. On a phone, tap either side of the table and hold Launch. |
 | [Neon Pong](https://shanemc92.github.io/gltch-arcade/#neon-pong) | First to 7 wins. Your paddle is on the left: move the mouse or a finger over the court, or use W and S or the arrow keys. |
 | [Peg Drop](https://shanemc92.github.io/gltch-arcade/#peg-drop) | Pick a bet, drop a ball and watch it bounce through the pegs into a multiplier. |
 | [Rock Paper Scissors Lizard Spock](https://shanemc92.github.io/gltch-arcade/#rock-paper-scissors-lizard-spock) | The expanded edition: five moves, ten rules, zero mercy. |
@@ -43,7 +44,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Texas Hold’em](https://shanemc92.github.io/gltch-arcade/#texas-holdem) | Heads-up limit Hold’em against a CPU that does its maths. |
 | [Tic-Tac-Toe](https://shanemc92.github.io/gltch-arcade/#tic-tac-toe) | You against a CPU that has never lost. A draw is a moral victory. |
 
-### Brain teasers and puzzles (17)
+### Brain teasers and puzzles (18)
 
 | Cabinet | What it is |
 |---|---|
@@ -57,6 +58,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Footsteps Illusion](https://shanemc92.github.io/gltch-arcade/#footsteps-illusion) | Both bars glide at one steady speed. So why do they seem to take turns stepping? |
 | [Gravity Slingshot](https://shanemc92.github.io/gltch-arcade/#gravity-slingshot) | Drag back from the probe to aim, then let go. |
 | [Octagon Flip](https://shanemc92.github.io/gltch-arcade/#octagon-flip) | Each face has an arrow, and the two sit at 90° to each other through the coin. |
+| [Pair Up](https://shanemc92.github.io/gltch-arcade/#pair-up) | Turn over two cards at a time and find all eight matching pairs in as few moves as you can. |
 | [Password Gauntlet](https://shanemc92.github.io/gltch-arcade/#password-gauntlet) | Make a password that passes every rule. New rules unlock as you go, and they do not all get along. |
 | [Phantom Dots](https://shanemc92.github.io/gltch-arcade/#phantom-dots) | Look around the grid and count the black dots. |
 | [Reflex Test](https://shanemc92.github.io/gltch-arcade/#reflex-test) | Wait for green, then tap as fast as you can. Jump early and you’re out. |
@@ -76,7 +78,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Fortune Cookie](https://shanemc92.github.io/gltch-arcade/#fortune-cookie) | Crack it open and read your destiny. Please do not eat the paper. |
 | [Octagon Oracle](https://shanemc92.github.io/gltch-arcade/#octagon-oracle) | Ask a yes or no question, then tap the octagon. |
 
-### Toys (13)
+### Toys (14)
 
 | Cabinet | What it is |
 |---|---|
@@ -86,6 +88,7 @@ Press **Next** for something random, or open the **Menu** to pick one. Next neve
 | [Dad Jokes](https://shanemc92.github.io/gltch-arcade/#dad-jokes) | Certified groan-grade material. Read the setup, brace yourself, then reveal the punchline. |
 | [Excuse Generator](https://shanemc92.github.io/gltch-arcade/#excuse-generator) | Need to get out of something? Here is a reason nobody can argue with, because nobody will believe it. |
 | [Fireworks](https://shanemc92.github.io/gltch-arcade/#fireworks) | Tap or click anywhere in the sky to send a rocket there. |
+| [Kaleidoscope](https://shanemc92.github.io/gltch-arcade/#kaleidoscope) | Drag across the disc and watch it mirror into a bloom. Pick 4, 6, 8 or 12 mirrors, or let it draw by itself. |
 | [Lava Lamp](https://shanemc92.github.io/gltch-arcade/#lava-lamp) | A slow, glowing lava lamp. Pick a colour scheme and a speed, then let your brain idle for a bit. |
 | [Life Lab](https://shanemc92.github.io/gltch-arcade/#life-lab) | Conway’s Game of Life. Draw cells, press play, and watch four simple rules build gliders, blinkers and glorious chaos. |
 | [Morse Station](https://shanemc92.github.io/gltch-arcade/#morse-station) | Type a message to see and hear it in Morse code, or switch to Decode and name the letter from the beeps. |

@@ -455,6 +455,16 @@ select.field{text-align:left;cursor:pointer;background-color:#12052a}
 .tq-opts .btn{text-transform:none;letter-spacing:.02em;font-size:15px;line-height:1.25}
 @media (max-width:520px){.tq-opts{grid-template-columns:1fr}}
 
+/* batch 6 */
+.pin{width:min(100%,310px);aspect-ratio:3/5;height:auto;border-radius:12px;border:2px solid var(--accent);display:block;touch-action:none;background:#05020c}
+.pair{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:min(100%,340px)}
+.pu{--c:var(--accent);aspect-ratio:1;display:grid;place-items:center;padding:12%;border-radius:12px;border:2px solid color-mix(in srgb,var(--accent) 55%,transparent);background:rgba(0,0,0,.35);color:var(--c);cursor:pointer;font:800 26px var(--ui);box-shadow:0 0 10px color-mix(in srgb,var(--accent) 30%,transparent);transition:background-color .2s,border-color .2s,box-shadow .2s,opacity .3s;touch-action:manipulation}
+.pu .sprite{width:100%;height:100%}
+.pu.up{border-color:var(--c);background:color-mix(in srgb,var(--c) 14%,rgba(0,0,0,.4));box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent)}
+.pu.done{opacity:.5}
+.pu:disabled{cursor:default}
+.kal{width:min(100%,420px);aspect-ratio:1;height:auto;border-radius:50%;border:2px solid var(--accent);display:block;touch-action:none;cursor:crosshair;background:#05020c;box-shadow:0 0 22px color-mix(in srgb,var(--accent) 45%,transparent)}
+
 @media (prefers-reduced-motion:reduce){
   .grid,.screen::after,.blink,.caret,.bob,.logo .lt,.logo .ghost{animation:none!important}
   .logo .ghost{opacity:.6}
@@ -4150,6 +4160,282 @@ item('game', 'Beat Lane', 'Hit each note as it crosses the line. Keys D, F, J an
     draw();
   });
   el.append(cv, msg, h('div', { class: 'row' }, btn, calB), h('label', { class: 'tempo' }, offLbl, off), st);
+});
+
+/* =====================================================================
+   Batch 6: Neon Pinball, Pair Up and Kaleidoscope. Together with the
+   other cabinets these keep every menu section an even length, so the
+   two-column menu has no gap in its last row.
+   ===================================================================== */
+const grab = (t, e) => { try { t.setPointerCapture(e.pointerId); } catch { /* pointer already gone */ } };
+item('game', 'Neon Pinball', 'Three balls, three bumpers and a lane bonus. Z or the left arrow flips left, / or the right arrow flips right, and holding space pulls the plunger. On a phone, tap either side of the table and hold Launch.', (el, ctx) => {
+  const W = 360, H = 600, BR = 7, GRAV = 640, LX = 326, CX = 180, CY = 180, AR = 170, FLEN = 64, REST = .65, UP = -.44, SUB = 1 / 240;
+  const [cv, g] = makeCanvas('pin', W, H, 'Pinball table');
+  const btn = h('button', { class: 'btn big', text: 'Start' }), lau = h('button', { class: 'btn big', text: 'Launch' }), st = h('div', { class: 'stats' });
+  const WALLS = [[10, CY, 10, 452], [10, 452, 100, 530], [LX, 215, LX, 580], [LX, 452, 236, 530], [350, CY, 350, 580], [LX, 580, 350, 580]];
+  const POSTS = [123, 153, 183, 213].map(x => [x, 86, x, 118]);
+  const LANES = [[138, 102], [168, 102], [198, 102]];
+  const BUMPS = [{ x: 112, y: 252, r: 22 }, { x: 224, y: 252, r: 22 }, { x: 168, y: 322, r: 22 }];
+  const SLINGS = [[50, 398, 88, 470, 50, 470], [286, 398, 248, 470, 286, 470]];
+  const PIV = [[100, 530, 1], [236, 530, -1]];
+  const fl = [{ a: REST, w: 0, on: false }, { a: REST, w: 0, on: false }];
+  const lit = [false, false, false], bumpT = [0, 0, 0], slingT = [0, 0];
+  let state = 'ready', ball = null, balls = 3, score = 0, mult = 1, charge = 0, charging = false, serveT = 0, litT = 0, note = null, accum = 0, still = 0, statT = 0, nx = 0, ny = 0;
+  const upd = () => stats(st, [['Score', score], ['Balls', balls], ['Bonus', 'x' + mult], ['Best', store.get('pinball-best', 0)]]);
+  const add = n => { score += n * mult; };
+  const newBall = () => { ball = { x: 338, y: 573, vx: 0, vy: 0, wait: true }; charge = 0; still = 0; mult = 1; };
+  function toggle() {
+    if (state === 'play') { state = 'pause'; btn.textContent = 'Resume'; }
+    else if (state === 'pause') { state = 'play'; btn.textContent = 'Pause'; }
+    else { balls = 3; score = 0; lit.fill(false); litT = 0; serveT = 0; newBall(); state = 'play'; btn.textContent = 'Pause'; Sound.select(); upd(); }
+  }
+  function flip(i, on) {
+    if (fl[i].on === on) return;
+    fl[i].on = on;
+    if (on && state === 'play') { Sound.tone(150, .05, 'square', .06, -60); if (i === 0) lit.push(lit.shift()); else lit.unshift(lit.pop()); }
+  }
+  function pull() { if (state === 'play' && ball && ball.wait) charging = true; }
+  function release() {
+    if (!charging) return;
+    charging = false;
+    if (state !== 'play' || !ball || !ball.wait) { charge = 0; return; }
+    ball.wait = false; ball.y = 573; ball.vx = 0; ball.vy = -(800 + 380 * charge); charge = 0;
+    Sound.tone(180, .3, 'sawtooth', .05, 700);
+  }
+  function drain() {
+    ball = null; balls--; Sound.lose(); fx(cv, SHAKE, 400);
+    if (balls <= 0) { state = 'over'; btn.textContent = 'Play again'; best('pinball-best', score); }
+    else serveT = .9;
+    upd();
+  }
+  /* Ball against a capsule (a line with thickness). A flipper passes its index so the surface velocity of the contact point is added. */
+  function hit(b, ax, ay, bx, by, rad, e, fi) {
+    const dx = bx - ax, dy = by - ay, t = clamp(((b.x - ax) * dx + (b.y - ay) * dy) / (dx * dx + dy * dy), 0, 1);
+    const px = ax + dx * t, py = ay + dy * t, qx = b.x - px, qy = b.y - py, d = Math.hypot(qx, qy), min = BR + rad;
+    if (d >= min || d < 1e-6) return 0;
+    nx = qx / d; ny = qy / d; b.x = px + nx * min; b.y = py + ny * min;
+    let sx = 0, sy = 0;
+    if (fi !== undefined) { const [ox, oy, sg] = PIV[fi], ws = fl[fi].w * sg; sx = -(py - oy) * ws; sy = (px - ox) * ws; }
+    const vn = (b.vx - sx) * nx + (b.vy - sy) * ny;
+    if (vn >= 0) return 0;
+    const k = (1 + (-vn < 60 ? 0 : e)) * vn;
+    b.vx -= k * nx; b.vy -= k * ny;
+    return -vn;
+  }
+  function sub(dt) {
+    for (let i = 0; i < 2; i++) {
+      const f = fl[i], d = (f.on ? UP : REST) - f.a, sp = (f.on ? 18 : 11) * dt, na = Math.abs(d) <= sp ? f.a + d : f.a + Math.sign(d) * sp;
+      f.w = (na - f.a) / dt; f.a = na;
+    }
+    const b = ball; if (!b || b.wait) return;
+    b.vy += GRAV * dt; b.vx *= 1 - .08 * dt; b.vy *= 1 - .08 * dt;
+    b.x += b.vx * dt; b.y += b.vy * dt;
+    if (b.y < CY) {
+      const dx = b.x - CX, dy = b.y - CY, d = Math.hypot(dx, dy);
+      if (d > AR - BR) {
+        const ux = -dx / d, uy = -dy / d, vn = b.vx * ux + b.vy * uy;
+        b.x = CX + dx / d * (AR - BR); b.y = CY + dy / d * (AR - BR);
+        if (vn < 0) { const k = (1 + (-vn < 60 ? 0 : .5)) * vn; b.vx -= k * ux; b.vy -= k * uy; }
+      }
+    }
+    if (b.y > 100 && b.y < 222 && b.vx > 0 && b.x > LX - BR && b.x < LX + 3) { b.x = LX - BR; b.vx *= -.4; }   // one-way gate out of the plunger lane
+    for (const w of WALLS) hit(b, w[0], w[1], w[2], w[3], 2, .45);
+    for (const p of POSTS) hit(b, p[0], p[1], p[2], p[3], 2.5, .5);
+    SLINGS.forEach((s2, i) => {
+      if (hit(b, s2[0], s2[1], s2[2], s2[3], 3, .3) > 70) {
+        const vo = b.vx * nx + b.vy * ny;
+        if (vo < 460) { b.vx += nx * (460 - vo); b.vy += ny * (460 - vo); }
+        slingT[i] = 1; add(10); Sound.tone(300, .06, 'square', .07, 220);
+      }
+    });
+    BUMPS.forEach((c, i) => {
+      const dx = b.x - c.x, dy = b.y - c.y, d = Math.hypot(dx, dy);
+      if (d >= BR + c.r || d < 1e-6) return;
+      const ux = dx / d, uy = dy / d, vn = b.vx * ux + b.vy * uy;
+      b.x = c.x + ux * (BR + c.r); b.y = c.y + uy * (BR + c.r);
+      if (vn >= 0) return;
+      b.vx -= 2 * vn * ux; b.vy -= 2 * vn * uy;
+      const vo = b.vx * ux + b.vy * uy;
+      if (vo < 360) { b.vx += ux * (360 - vo); b.vy += uy * (360 - vo); }
+      bumpT[i] = 1; add(100); Sound.pop();
+    });
+    for (let i = 0; i < 2; i++) {
+      const [ox, oy, sg] = PIV[i], a = fl[i].a;
+      hit(b, ox, oy, ox + sg * Math.cos(a) * FLEN, oy + Math.sin(a) * FLEN, 6, .35, i);
+    }
+    LANES.forEach((l, i) => {
+      if (lit[i] || Math.hypot(b.x - l[0], b.y - l[1]) > 13) return;
+      lit[i] = true; add(500); Sound.coin();
+      if (lit.every(Boolean)) { mult = Math.min(5, mult + 1); score += 1500; litT = .6; note = { t: 1.4, s: 'LANE BONUS x' + mult }; Sound.win(); }
+    });
+    const sp = Math.hypot(b.vx, b.vy);   // keep the ball under a few pixels a step so nothing can tunnel
+    if (sp > 1250) { b.vx *= 1250 / sp; b.vy *= 1250 / sp; }
+  }
+  function step(dt) {
+    const s = dt / 1000;
+    if (charging && ball && ball.wait) { charge = Math.min(1, charge + s / .9); ball.y = 573 + 14 * charge; }
+    accum += s;
+    for (let n = 0; accum >= SUB && n < 14; n++, accum -= SUB) sub(SUB);
+    if (accum > SUB * 14) accum = 0;
+    const b = ball;
+    if (b && !b.wait) {
+      const sp = Math.hypot(b.vx, b.vy);
+      if (b.x > LX + 2 && b.y > 540 && sp < 30) { b.wait = true; b.x = 338; b.y = 573; b.vx = b.vy = 0; }                       // fell back down the lane
+      else if (sp < 12 && !fl[0].on && !fl[1].on) { if ((still += s) > 4) { b.vx = (Math.random() - .5) * 300; b.vy = -220; still = 0; } }   // stuck: give it a nudge
+      else still = 0;
+      if (b.y > H + 16) drain();
+    }
+    if (serveT > 0 && (serveT -= s) <= 0) newBall();
+    if (litT > 0 && (litT -= s) <= 0) lit.fill(false);
+    for (let i = 0; i < 3; i++) bumpT[i] = Math.max(0, bumpT[i] - s * 4);
+    for (let i = 0; i < 2; i++) slingT[i] = Math.max(0, slingT[i] - s * 4);
+    if (note && (note.t -= s) <= 0) note = null;
+    if ((statT += dt) > 120) { statT = 0; upd(); }
+  }
+  function draw() {
+    g.fillStyle = '#06030f'; g.fillRect(0, 0, W, H);
+    g.fillStyle = 'rgba(34,228,255,.06)'; g.fillRect(LX, 215, 24, 365);
+    g.save(); g.lineJoin = g.lineCap = 'round';
+    g.strokeStyle = '#22e4ff'; g.shadowColor = '#22e4ff'; g.shadowBlur = 10; g.lineWidth = 3;
+    g.beginPath(); g.moveTo(10, 452); g.lineTo(10, CY); g.arc(CX, CY, AR, Math.PI, TAU); g.lineTo(350, 580); g.lineTo(LX, 580); g.lineTo(LX, 215); g.stroke();
+    g.strokeStyle = '#ff2bd6'; g.shadowColor = '#ff2bd6';
+    g.beginPath(); g.moveTo(10, 452); g.lineTo(100, 530); g.moveTo(LX, 452); g.lineTo(236, 530); g.stroke();
+    g.lineWidth = 5; g.beginPath(); for (const p of POSTS) { g.moveTo(p[0], p[1]); g.lineTo(p[2], p[3]); } g.stroke();
+    g.restore();
+    LANES.forEach((l, i) => {
+      g.save(); g.beginPath(); g.arc(l[0], l[1], 7, 0, TAU);
+      if (lit[i]) { g.fillStyle = '#ffd319'; g.shadowColor = '#ffd319'; g.shadowBlur = 14; g.fill(); } else { g.strokeStyle = 'rgba(255,211,25,.45)'; g.lineWidth = 2; g.stroke(); }
+      g.restore();
+    });
+    SLINGS.forEach((s2, i) => {
+      g.save(); g.beginPath(); g.moveTo(s2[0], s2[1]); g.lineTo(s2[2], s2[3]); g.lineTo(s2[4], s2[5]); g.closePath();
+      g.fillStyle = `rgba(255,211,25,${.12 + .6 * slingT[i]})`; g.fill();
+      g.strokeStyle = '#ffd319'; g.shadowColor = '#ffd319'; g.shadowBlur = 8; g.lineWidth = 2.5; g.lineJoin = 'round'; g.stroke(); g.restore();
+    });
+    BUMPS.forEach((c, i) => {
+      g.save(); g.beginPath(); g.arc(c.x, c.y, c.r, 0, TAU);
+      g.fillStyle = `rgba(255,43,214,${.1 + .7 * bumpT[i]})`; g.fill();
+      g.strokeStyle = '#ff2bd6'; g.shadowColor = '#ff2bd6'; g.shadowBlur = 12 + 14 * bumpT[i]; g.lineWidth = 3; g.stroke();
+      g.shadowBlur = 0; g.beginPath(); g.arc(c.x, c.y, 7, 0, TAU); g.fillStyle = bumpT[i] > .2 ? '#fff' : '#ffd319'; g.fill(); g.restore();
+    });
+    g.save(); g.textAlign = 'center'; g.fillStyle = 'rgba(255,43,214,.22)'; g.font = `800 40px ${UIFONT}`; g.fillText('x' + mult, 168, 440); g.restore();
+    for (let i = 0; i < 2; i++) {
+      const [ox, oy, sg] = PIV[i], a = fl[i].a, c = fl[i].on ? '#ffd319' : '#22e4ff';
+      g.save(); g.strokeStyle = c; g.shadowColor = c; g.shadowBlur = 12; g.lineWidth = 12; g.lineCap = 'round';
+      g.beginPath(); g.moveTo(ox, oy); g.lineTo(ox + sg * Math.cos(a) * FLEN, oy + Math.sin(a) * FLEN); g.stroke();
+      g.shadowBlur = 0; g.fillStyle = '#05020c'; g.beginPath(); g.arc(ox, oy, 3, 0, TAU); g.fill(); g.restore();
+    }
+    const py = ball && ball.wait ? ball.y + BR : 580;
+    g.fillStyle = '#a597cc'; g.fillRect(333, py, 10, 594 - py);
+    if (ball) { g.save(); g.shadowColor = '#fff'; g.shadowBlur = 10; g.fillStyle = '#fff'; g.beginPath(); g.arc(ball.x, ball.y, BR, 0, TAU); g.fill(); g.restore(); }
+    g.save(); g.textAlign = 'center';
+    if (state === 'play' && ball && ball.wait) { g.fillStyle = '#a597cc'; g.font = `600 14px ${UIFONT}`; g.fillText('Hold space or Launch, then let go', 168, 388); }
+    if (note) { g.globalAlpha = Math.min(1, note.t * 2); g.fillStyle = '#ffd319'; g.shadowColor = '#ffd319'; g.shadowBlur = 12; g.font = `800 24px ${UIFONT}`; g.fillText(note.s, 168, 204); }
+    g.restore();
+    if (state !== 'play') canvasBanner(g, W, H, state === 'ready' ? 'PRESS START' : state === 'pause' ? 'PAUSED' : 'GAME OVER', state === 'over' ? `Score ${score}. Tap or press space.` : 'Tap the table or press space', '#ff2bd6');
+  }
+  const KL = ['z', 'Z', 'ArrowLeft'], KR = ['/', 'm', 'M', 'ArrowRight'], tap = new Map();
+  ctx.on(window, 'keydown', e => {
+    if (e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input,textarea,select,dialog'))) return;
+    if (KL.includes(e.key)) { e.preventDefault(); flip(0, true); }
+    else if (KR.includes(e.key)) { e.preventDefault(); flip(1, true); }
+    else if (e.key === ' ') { e.preventDefault(); if (!e.repeat) { if (state === 'play') pull(); else toggle(); } }
+    else if ((e.key === 'p' || e.key === 'P') && state !== 'ready' && state !== 'over') toggle();
+  });
+  ctx.on(window, 'keyup', e => {
+    if (KL.includes(e.key)) flip(0, false);
+    else if (KR.includes(e.key)) flip(1, false);
+    else if (e.key === ' ') { e.preventDefault(); release(); }
+  });
+  ctx.on(window, 'blur', () => { flip(0, false); flip(1, false); charging = false; charge = 0; if (ball && ball.wait) ball.y = 573; });
+  cv.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    if (state !== 'play') { toggle(); return; }
+    grab(cv, e);
+    const i = canvasX(cv, e, W) < W / 2 ? 0 : 1; tap.set(e.pointerId, i); flip(i, true);
+  });
+  const up = e => { if (tap.has(e.pointerId)) { flip(tap.get(e.pointerId), false); tap.delete(e.pointerId); } };
+  cv.addEventListener('pointerup', up); cv.addEventListener('pointercancel', up);
+  lau.addEventListener('pointerdown', e => { e.preventDefault(); grab(lau, e); pull(); });
+  lau.addEventListener('pointerup', release); lau.addEventListener('pointercancel', release);
+  btn.addEventListener('click', () => { toggle(); btn.blur(); });
+  newBall(); upd();
+  ctx.loop(dt => {
+    if (state === 'play') step(dt);
+    draw();
+  });
+  el.append(cv, h('div', { class: 'row' }, btn, lau), st);
+});
+
+item('brain', 'Pair Up', 'Turn over two cards at a time and find all eight matching pairs in as few moves as you can.', (el, ctx) => {
+  const SYMS = [['bug', 'Bug', 'var(--green)'], ['star', 'Star', 'var(--yellow)'], ['bomb', 'Bomb', 'var(--red)'], ['lizard', 'Lizard', 'var(--cyan)'], ['spock', 'Spock', 'var(--pink)'], ['bot', 'Bot', '#9d5cff'], ['ship', 'Ship', '#ff7a3d'], ['shard', 'Shard', '#ffffff']];
+  const grid = h('div', { class: 'pair', role: 'group', 'aria-label': 'Sixteen cards' }), msg = h('div', { class: 'msg', 'aria-live': 'polite' }), st = h('div', { class: 'stats' });
+  let cards = [], first = null, lock = false, moves = 0, found = 0;
+  const upd = () => stats(st, [['Moves', moves], ['Pairs', found + '/8'], ['Best', store.get('pair-best', '-')]]);
+  function show(c, up) {
+    c.up = up; c.el.classList.toggle('up', up);
+    c.el.style.setProperty('--c', up ? SYMS[c.k][2] : 'var(--accent)');
+    c.el.replaceChildren(up ? sprite(SYMS[c.k][0]) : document.createTextNode('?'));
+    c.el.setAttribute('aria-label', up ? SYMS[c.k][1] : 'Face down card');
+    fx(c.el, [{ transform: 'rotateY(90deg)' }, { transform: 'none' }], 240);
+  }
+  function pick2(c) {
+    if (lock || c.up || c.done) return;
+    show(c, true); Sound.tick();
+    if (!first) { first = c; return; }
+    const a = first; first = null; moves++;
+    if (a.k === c.k) {
+      a.done = c.done = true; found++; a.el.classList.add('done'); c.el.classList.add('done'); a.el.disabled = c.el.disabled = true; Sound.coin();
+      if (found === SYMS.length) { say(msg, `Cleared in ${moves} moves`); if (best('pair-best', moves, true)) msg.textContent += '. New best!'; Sound.win(); }
+    } else {
+      lock = true;
+      ctx.timeout(() => { show(a, false); show(c, false); lock = false; }, 800);
+    }
+    upd();
+  }
+  function deal() {
+    const ks = shuffle(SYMS.flatMap((_, i) => [i, i]));
+    first = null; lock = false; moves = 0; found = 0; msg.textContent = '';
+    cards = ks.map(k => { const c = { k, up: false, done: false, el: h('button', { class: 'pu', type: 'button' }) }; c.el.addEventListener('click', () => pick2(c)); show(c, false); return c; });
+    grid.replaceChildren(...cards.map(c => c.el)); upd();
+  }
+  deal();
+  el.append(msg, grid, h('button', { class: 'btn big', text: 'New game', onclick: () => { deal(); Sound.select(); } }), st);
+});
+
+item('toy', 'Kaleidoscope', 'Drag a finger or the mouse across the disc and watch it mirror into a bloom. Change the number of mirrors, or let it draw by itself.', (el, ctx) => {
+  const S = 420, [cv, g] = makeCanvas('kal', S, S, 'Kaleidoscope drawing disc');
+  const SEGS = [4, 6, 8, 12];
+  let si = 2, hue = 300, last = null, auto = true, t = 0, aLast = null, frame = 0;
+  const segB = h('button', { class: 'btn sm', text: 'Mirrors: ' + SEGS[si] }), autoB = h('button', { class: 'btn sm on', text: 'Auto', 'aria-pressed': 'true' });
+  function stroke(a, b) {
+    const n = SEGS[si], c = `hsl(${hue} 100% 62%)`;
+    g.save(); g.translate(S / 2, S / 2); g.lineCap = 'round'; g.lineWidth = 3; g.strokeStyle = c; g.shadowColor = c; g.shadowBlur = 8;
+    for (let k = 0; k < n; k++) {
+      g.save(); g.rotate(k * TAU / n); g.beginPath();
+      g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.moveTo(a.x, -a.y); g.lineTo(b.x, -b.y); g.stroke(); g.restore();
+    }
+    g.restore();
+  }
+  const at = e => ({ x: clamp(canvasX(cv, e, S) - S / 2, -S / 2, S / 2), y: clamp(canvasY(cv, e, S) - S / 2, -S / 2, S / 2) });
+  cv.addEventListener('pointerdown', e => { e.preventDefault(); grab(cv, e); last = at(e); stroke(last, last); Sound.tick(); });
+  cv.addEventListener('pointermove', e => { if (!last) return; const p = at(e); hue = (hue + 1.5) % 360; stroke(last, p); last = p; });
+  ['pointerup', 'pointercancel'].forEach(ev => cv.addEventListener(ev, () => { last = null; }));
+  segB.addEventListener('click', () => { si = (si + 1) % SEGS.length; segB.textContent = 'Mirrors: ' + SEGS[si]; Sound.blip(); });
+  autoB.addEventListener('click', () => { auto = !auto; aLast = null; autoB.classList.toggle('on', auto); autoB.setAttribute('aria-pressed', String(auto)); Sound.blip(); });
+  const clear = () => { g.fillStyle = '#05020c'; g.fillRect(0, 0, S, S); };
+  clear();
+  ctx.loop(dt => {
+    t += dt / 1000; frame++;
+    if (auto) {
+      if (frame % 3 === 0) { g.fillStyle = 'rgba(5,2,12,.04)'; g.fillRect(0, 0, S, S); }
+      const p = { x: 150 * Math.sin(t * 1.3) * Math.cos(t * .37) + 40 * Math.sin(t * 3.1), y: 150 * Math.cos(t * 1.1) * Math.sin(t * .43 + 1) + 40 * Math.cos(t * 2.7) };
+      hue = (hue + .8) % 360;
+      if (aLast) stroke(aLast, p);
+      aLast = p;
+    }
+  });
+  el.append(cv, h('div', { class: 'row' }, autoB, segB, h('button', { class: 'btn sm', text: 'Clear', onclick: () => { clear(); Sound.blip(); } })));
 });
 
 /* =====================================================================
