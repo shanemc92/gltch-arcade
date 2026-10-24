@@ -5073,7 +5073,7 @@ item('brain', 'Neon Cube', 'A 3 by 3 twisty cube. Drag across a face to turn a l
     g.shadowBlur = 0;
   }
   function advance(dt) {
-    if (!anim && queue.length) { const m = queue.shift(); anim = { ...m, k: 0, ms: RM.matches ? 1 : m.fast ? 70 : 200 }; }
+    if (!anim && queue.length) { const m = queue.shift(); anim = { ...m, k: 0, ms: m.fast ? (RM.matches ? 40 : 70) : (RM.matches ? 120 : 200) }; }   // with FX off the turns are quicker, not instant, so you can still follow what moved
     if (!anim) return;
     anim.k = Math.min(1, anim.k + dt / anim.ms);
     if (anim.k >= 1) { const m = anim; anim = null; commit(m); done(m); }

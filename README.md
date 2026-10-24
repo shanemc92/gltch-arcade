@@ -14,7 +14,7 @@ A neon, 80s-style arcade cabinet in a single HTML file. Seventy-two tiny games, 
 - **Shareable links.** Every cabinet has its own address, such as `#snake` or `#beat-lane`, and the Menu lists all of them.
 - **Synthesised sound.** Every bleep, drum and chord is generated with the Web Audio API. Sound stays off until you switch it on.
 - **Keyboard, mouse and touch.** Canvas games have touch controls.
-- **Motion and static are optional.** The **FX** button in the header switches off the animation and the CRT static. It starts off if your system asks for reduced motion (`prefers-reduced-motion`), and your choice is remembered on your device.
+- **Motion and static are optional.** The **FX** button in the header switches off the animation and the CRT static (Neon Cube still turns its layers, just a little quicker, so you can follow each move). It starts off if your system asks for reduced motion (`prefers-reduced-motion`), and your choice is remembered on your device.
 - **Tickets and a prize counter.** Wins, high scores and time spent playing earn tickets, and the count sits in the top bar of the screen. Open the **Menu** and press **Cash out** for a high-score-style payout and a prize that is exactly as good as a real arcade's. More tickets, better junk.
 - **One cabinet is hidden.** It is not in the Menu, Random never picks it and it has no link. It is a tribute to a 1983 film, and the password is in the film.
 - **Private by default.** High scores, your tickets, the shared chip bank and your Pixel Pad drawing live in `localStorage` on your device and nowhere else.
